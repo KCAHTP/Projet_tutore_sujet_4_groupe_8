@@ -1,11 +1,13 @@
 from flask import Flask
 from modele_bdd import bdd
+from routes import bp
 
 app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///plateforme.db"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 bdd.init_app(app)
+app.register_blueprint(bp)
 
 with app.app_context():
     bdd.create_all()
