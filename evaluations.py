@@ -9,7 +9,14 @@ def get_evaluations():
 	evaluations = Evaluation.query.all()
 	result = []
 	for e in evaluations:
-		result.append({ 'id': e.id, 'ec_id': e.ec_id, 'classe_id': e.classe_id, 'date': str(e.date), 'type': e.type, 'statut': e.statut })
+		result.append({
+			 'id': e.id,
+			 'ec_id': e.ec_id,
+			 'classe_id': e.classe_id,
+			 'date': str(e.date),
+			 'type': e.type,
+			 'statut': e.statut 
+		})
 	return jsonify(result)
 
 #Route 2: Modifier le statut d'une evaluation(terminé, planifié, en cours, en retard)
@@ -27,7 +34,13 @@ def update_evaluation(id):
 @eval_bp.route('/evaluations', methods=['POST'])
 def add_evaluation():
 	data = request.get_json()
-	nouvelle = Evaluation(ec_id=data['ec_id'], classe_id=data['classe_id'], date=data['date'], type=data['type'], statut=data['statut'])
+	nouvelle = Evaluation(
+		ec_id=data['ec_id'],
+		classe_id=data['classe_id'],
+		date=data['date'],
+		type=data['type'],
+		statut=data['statut']
+	)
 	bdd.session.add(nouuvelle)
 	bdd.session.commit()
 	return jsonify('mesage':'Evaluation ajoutée avec succès')

@@ -33,6 +33,19 @@ def get_statistiques():
 			pourcentage_classe = round((terminées_classe / total_classe) * 100, 2)
 		else:
 			pourcentage_classe = 0
-		stats_par_classe.append( { 'classe': c.nom, 'total_evaluations': total_classe, 'terminées': terminées_classe, 'avancement': f"{pourcentage_classe}%" })
-	return jsonify({ 'total_evaluations': total, 'terminées': terminées, 'planifiées': planifiées, 'en_cours': en_cours, 'en_retard': en_retard, 'avancement_global': f"{pourcentage}%", 'statistiques_par_classe': stats_par_classe })
+		stats_par_classe.append({
+			 'classe': c.nom,
+			 'total_evaluations': total_classe,
+			 'terminées': terminées_classe,
+			 'avancement': f"{pourcentage_classe}%"
+		})
+	return jsonify({
+		 'total_evaluations': total,
+		 'terminées': terminées,
+		 'planifiées': planifiées,
+		 'en_cours': en_cours,
+		 'en_retard': en_retard,
+		 'avancement_global': f"{pourcentage}%",
+		 'statistiques_par_classe': stats_par_classe
+	})
 
