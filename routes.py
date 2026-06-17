@@ -40,7 +40,7 @@ def supprimer_emploi(id):
     return redirect(url_for("main.liste_emplois"))
 
 
-#PRÉCÉDENCES 
+#PRECEDENCES 
 
 @bp.route("/precedences")
 def liste_precedences():
@@ -69,27 +69,34 @@ def supprimer_precedence(id):
     bdd.session.commit()
     return redirect(url_for("main.liste_precedences"))
 
+# ELEMENTS CONSTITUTIFS
 
-#DASHBOARD
-
-@bp.route("/")
-def dashboard():
-    total_ecs = EC.query.count()
-    total_evaluations = bdd.session.execute(
-        bdd.select(bdd.func.count()).select_from(bdd.Model.metadata.tables["evaluation"])
-    ).scalar()
-    evaluations_realisees = bdd.session.execute(
-        bdd.select(bdd.func.count()).select_from(bdd.Model.metadata.tables["evaluation"])
-        .where(bdd.Model.metadata.tables["evaluation"].c.statut == "realise")
-    ).scalar()
-    taux_avancement = (
-        round((evaluations_realisees / total_evaluations) * 100, 1)
-        if total_evaluations > 0 else 0
-    )
-    return render_template(
-        "dashboard.html",
-        total_ecs=total_ecs,
-        total_evaluations=total_evaluations,
-        evaluations_realisees=evaluations_realisees,
-        taux_avancement=taux_avancement,
-    )
+@bp.route("/ec")
+def liste_ec():
+    ecs = EC.query.all()
+    return render_template("ec.html", ecs=ecs)
+ 
+ 
+@bp.route("/ec/ajouter", methods=["GET", "POST"])
+def ajouter_ec():
+    if request.method == "POST":
+        nouvel_ec = EC(
+            nom=request.form["nom"],
+            volume_horaire=request.form["volume_horaire"],
+            classe_id=request.form["classe_id"],
+            enseignant_id=request.form["enseignant_id"],
+        )
+        bdd.session.add(nouvel_ec)
+        bdd.session.commit()
+        return redirect(url_for("main.liste_ec"))
+    classes = Classe.query.all()
+    enseignants = Enseignant.query.all()
+    return render_template("ajouter_ec.html", classes=classes, enseignants=enseignants)
+ 
+ 
+@bp.route("/ec/supprimer/<int:id>")
+def supprimer_ec(id):
+    ec = EC.query.get_or_404(id)
+    bdd.session.delete(ec)
+    bdd.session.commit()
+    return redirect(url_for("main.liste_ec"))
