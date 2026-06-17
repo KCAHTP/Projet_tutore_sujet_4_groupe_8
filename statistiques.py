@@ -13,7 +13,7 @@ def get_statistiques():
 	terminées = len([e for e in toutes if e.statut == 'terminée'])
 	planifiées = len([e for e in toutes if e.statut == 'planifiée'])
 	en_cours = len([e for e in toutes if e.statut == 'en cours'])
-	en_retard= len([e for e in toutes if e.statut == 'planifiée' and e.date < date.today()])
+    en_retard = len([e for e in toutes if e.statut == 'planifiée' and e.date and e.date < date.today()])
 
 #pourcentage d'avancement global
 	if total > 0:
