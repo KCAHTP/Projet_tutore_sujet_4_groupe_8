@@ -1,0 +1,26 @@
+.card {
+    background: #ffffff;
+    padding: 2.5rem;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    width: 350px;
+    border: 1px solid #ddd;
+}
+
+.styled-select {
+    width: 100%;
+    padding: 15px;
+    margin: 20px 0;
+    border: 2px solid #1e5a3a; /* Vert foncé */
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    font-size: 1rem;
+    color: #333;
+    cursor: pointer;
+    appearance: none; /* Enlève le style par défaut du navigateur */
+}
+
+.styled-select:focus {
+    outline: none;
+    border-color: #2e8b57; /* Vert un peu plus clair au clic */
+}

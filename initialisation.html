@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <title>Initialisation</title>
+  <link rel="stylesheet" href="initialisation.css" />
+  <link rel="stylesheet" href="global.css">
+</head>
+
+<body>
+
+
+
+  <!-- CONTENU PRINCIPAL -->
+  <main class="content">
+
+    <div class="container">
+
+      <h2>Initialisation de la base de données</h2>
+
+      <!-- Boutons -->
+      <div class="boutons-choix">
+        <button onclick="afficherFormulaire('enseignant')" class="btn-choix">
+          Ajouter un enseignant
+        </button>
+
+        <button onclick="afficherFormulaire('ec')" class="btn-choix">
+          Ajouter un module (EC)
+        </button>
+      </div>
+
+      <!-- Formulaire Enseignant -->
+      <div id="form-enseignant" class="formulaire" style="display:none;">
+        <h3>Nouvel enseignant</h3>
+
+        <div class="champ">
+          <label>Nom</label>
+          <input type="text" id="ens-nom" />
+        </div>
+
+        <div class="champ">
+          <label>Prénom</label>
+          <input type="text" id="ens-prenom" />
+        </div>
+
+        <div class="champ">
+          <label>Disponibilités</label>
+          <textarea id="ens-dispo"></textarea>
+        </div>
+
+        <div class="form-actions">
+          <button onclick="ajouterEnseignant()" class="btn-save">Enregistrer</button>
+          <button onclick="fermerFormulaire()" class="btn-cancel">Annuler</button>
+        </div>
+      </div>
+
+      <!-- Formulaire EC -->
+      <div id="form-ec" class="formulaire" style="display:none;">
+        <h3>Nouveau module (EC)</h3>
+
+        <div class="champ">
+          <label>Nom du module</label>
+          <input type="text" id="ec-nom" />
+        </div>
+
+        <div class="champ">
+          <label>Volume horaire</label>
+          <input type="number" id="ec-volume" min="1" />
+        </div>
+
+        <div class="champ">
+          <label>Classe</label>
+          <select id="ec-classe">
+            <option value="1">Licence 1</option>
+            <option value="2">Licence 2</option>
+            <option value="3">Licence 3 - ISI</option>
+            <option value="4">Licence 3 - IRS</option>
+            <option value="5">Master 1 - SIDSAD</option>
+            <option value="6">Master 1 - SISD</option>
+            <option value="7">Master 1 - RSCAR</option>
+            <option value="8">Master 1 - RSCS</option>
+             <option value="5">Master 2 - SIDSAD</option>
+            <option value="6">Master 2- SISD</option>
+            <option value="7">Master 2 - RSCAR</option>
+            <option value="8">Master 2 - RSCS</option>
+
+          </select>
+        </div>
+
+        <div class="champ">
+          <label>Enseignant</label>
+          <select id="ec-enseignant">
+            <option value="">-- Choisir un enseignant --</option>
+          </select>
+        </div>
+
+        <div class="form-actions">
+          <button onclick="ajouterEC()" class="btn-save">Enregistrer</button>
+          <button onclick="fermerFormulaire()" class="btn-cancel">Annuler</button>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  
+
+
+
+
+<script src="initialisation.js"></script>
+<script src="Sidebar.js"></script>
+
+</body>
+</html>

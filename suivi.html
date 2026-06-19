@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tableau de Bord - Suivi & Devoirs</title>
+  <link rel="stylesheet" href="suivi.css">
+  <link rel="stylesheet" href="global.css">
+</head>
+<body>
+
+  <div class="suivi-container">
+    <h2>Suivi des Cours & Validation des Heures</h2>
+    
+    <div class="filter-box">
+      <label for="semaine-selectionnee">Semaine du :</label>
+      <input type="date" id="semaine-selectionnee" onchange="rafraichirDonneesSemaine()" />
+      <span class="info-classe">Classe : <strong id="nom-classe">...</strong></span>
+    </div>
+
+    <table class="suivi-table">
+      <thead>
+        <tr>
+          <th>Date & Heure</th>
+          <th>Module (EC)</th>
+          <th>Enseignant</th>
+          <th>Heures Prévues</th>
+          <th>Heures Réalisées</th>
+          <th>Statut / Écart</th>
+        </tr>
+      </thead>
+      <tbody id="liste-suivi-cours">
+        </tbody>
+    </table>
+
+    <div class="suivi-actions">
+      <button onclick="enregistrerSuiviSemaine()" class="btn-save-all">
+        Enregistrer le rapport d'heures
+      </button>
+    </div>
+
+    <div class="devoirs-section">
+      <h2 class="section-title">Validation des Devoirs de la Semaine</h2>
+      <div id="liste-devoirs" class="devoirs-grid">
+        </div>
+    </div>
+
+  </div>
+
+  <script src="suivi.js"></script>
+ 
+
+
+ 
+    <script src="Sidebar.js"></script>
+</body>
+</html>
