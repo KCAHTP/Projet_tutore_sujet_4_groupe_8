@@ -1,129 +1,163 @@
-/* --- GENERAL --- */
+/* Annule les styles de global.css qui cassent cette page */
 body {
-  font-family: Arial, sans-serif;
-  background: #78aa84;
-  margin: 0;
-  padding: 20px;
+    display: block !important;
+    justify-content: unset !important;
+    align-items: unset !important;
+    height: auto !important;
 }
 
-.suivi-container {
-  max-width: 1100px;
-  margin: 0 auto;
-  background: #ffffff;
-  padding: 30px;
-  border-radius: 12px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+/* Contenu principal décalé pour laisser place à la sidebar */
+.main-content {
+    margin-left: 270px;
+    padding: 30px;
+    min-height: 100vh;
+    box-sizing: border-box;
 }
 
-/* --- FILTRE SEMAINE --- */
-.filter-box {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  margin-bottom: 20px;
-  padding: 12px 16px;
-  background: #f1f5f9;
-  border-radius: 8px;
+/* En-tête */
+.suivi-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.suivi-header h1 {
+    color: #1e3a5f;
+    font-size: 1.6rem;
+    margin: 0;
 }
 
 .info-classe {
-  margin-left: auto;
-  font-size: 14px;
-  color: #475569;
+    background: #e8f0fe;
+    color: #1e3a5f;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 0.95rem;
 }
 
-/* --- TABLEAU SUIVI --- */
-.suivi-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-bottom: 20px;
+/* Grille des cartes devoirs */
+.devoirs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
 }
 
-.suivi-table th {
-  background: #1e293b;
-  color: white;
-  padding: 12px 14px;
-  text-align: left;
-  font-size: 13px;
+/* Carte devoir */
+.devoir-card {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    border-left: 5px solid #94a3b8;
+    transition: transform 0.2s;
+    width: auto !important;
+    animation: none !important;
 }
 
-.suivi-table td {
-  padding: 12px 14px;
-  border-bottom: 1px solid #e2e8f0;
-  font-size: 13px;
-  color: #334155;
-  vertical-align: middle;
+.devoir-card:hover {
+    transform: translateY(-3px);
 }
 
-.suivi-table tr:hover {
-  background: #f8fafc;
+.devoir-card h3 {
+    margin: 0 0 10px 0;
+    color: #1e3a5f;
+    font-size: 1.1rem;
 }
 
-.input-heures-faites {
-  width: 60px;
-  padding: 5px 8px;
-  border: 1px solid #cbd5e1;
-  border-radius: 6px;
-  font-size: 13px;
-  text-align: center;
+.devoir-card p {
+    margin: 5px 0;
+    color: #475569;
+    font-size: 0.9rem;
 }
 
-/* --- BADGES STATUT --- */
-.status-badge {
-  padding: 4px 10px;
-  border-radius: 20px;
-  font-size: 12px;
-  font-weight: 600;
+/* Carte confirmée (terminée) */
+.card-confirmee {
+    border-left-color: #22c55e;
+    background: #f0fdf4;
 }
 
-.status-ok {
-  background: #dcfce7;
-  color: #16a34a;
+/* Carte annulée (non fait) */
+.card-annulee {
+    border-left-color: #ef4444;
+    background: #fef2f2;
 }
 
-.status-alert {
-  background: #fef9c3;
-  color: #ca8a04;
+/* Boutons validation */
+.card-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
 }
 
-/* --- BOUTON ENREGISTRER --- */
-.suivi-actions {
-  margin-bottom: 30px;
+.btn-confirm {
+    background: #22c55e;
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    flex: 1;
+    transition: background 0.2s;
 }
 
-.btn-save-all {
-  background: #2563eb;
-  color: rgb(140, 207, 176);
-  border: none;
-  padding: 10px 20px;
-  border-radius: 8px;
-  font-size: 14px;
-  font-weight: 600;
-  cursor: pointer;
+.btn-confirm:hover {
+    background: #16a34a;
 }
 
-.btn-save-all:hover {
-  background: #1d4ed8;
+.btn-reject {
+    background: #ef4444;
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    flex: 1;
+    transition: background 0.2s;
 }
 
+.btn-reject:hover {
+    background: #dc2626;
+}
 
-/* Exemple : si l'écran est petit (téléphone) */
+/* Statut final */
+.status-final {
+    display: inline-block;
+    margin-top: 15px;
+    font-weight: bold;
+    font-size: 0.95rem;
+}
+
+/* Messages */
+.chargement, .vide, .erreur {
+    grid-column: 1 / -1;
+    text-align: center;
+    color: #64748b;
+    padding: 40px;
+    font-size: 1rem;
+}
+
+.erreur {
+    color: #ef4444;
+}
+
+/* Responsive */
 @media (max-width: 768px) {
-    .sidebar {
-        width: 100%;
-        height: auto;
-        position: relative;
-    }
     .main-content {
         margin-left: 0;
+        padding: 15px;
+    }
+
+    .devoirs-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .suivi-header {
+        flex-direction: column;
+        align-items: flex-start;
     }
 }
-
-
-.badge-type {
-    display: inline-block;
-    margin-bottom: 5px;
-    font-weight: bold;
-    color: #4338ca;
-}
-
