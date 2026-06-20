@@ -4,11 +4,10 @@ async function chargerStatistiques() {
 
     try {
 
-        const response = await fetch(
-            "http://localhost:8080/statistiques"
-        );
+        const res= await fetch("http://localhost:5000/api/statistiques")
 
-        const data = await response.json();
+        if(!res.ok) throw new Error()
+        const data = await res.json()
 
         document.getElementById("total").textContent =
             data.total_evaluations;
@@ -33,29 +32,36 @@ async function chargerStatistiques() {
 
         const tbody =
             document.getElementById("table-classes");
+            tbody.innerHTML = "";
 
-        tbody.innerHTML = "";
+
+        if (!data.statistiques_par_classe || data.statistiques_par_classe.length === 0) {
+            tbody.innerHTML = `<tr><td colspan="4" style="text-align:center;">Aucune donnée disponible.</td></tr>`
+            return
+        }
+        
+        
 
         data.statistiques_par_classe.forEach(classe => {
-
-            const ligne = `
-                <tr>
+            const ligne = document.createElement('tr')
+            ligne.innerHTML = `
+             
                     <td>${classe.classe}</td>
                     <td>${classe.total_evaluations}</td>
                     <td>${classe.terminées}</td>
                     <td>${classe.avancement}</td>
-                </tr>
+               
             `;
 
-            tbody.innerHTML += ligne;
+            tbody.appendChild(ligne)
         });
 
     } catch(error) {
 
-        console.error(error);
+        console.error("Erreur API statistiques :",error);
 
         alert(
-            "Impossible de charger les statistiques"
-        );
+            "Impossible de charger les statistiques")
+        
     }
 }
