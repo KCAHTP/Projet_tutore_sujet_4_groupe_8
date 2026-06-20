@@ -15,6 +15,12 @@ let dateSelectionnee = ''
 let coursASupprimer = null
 let calendar
 
+
+// Dictionnaires id → nom pour résoudre les noms côté front
+const dicoECs = {}        // { 1: "Algorithmique", 2: "Réseaux", ... }
+const dicoEnseignants = {} // { 1: "M. Kaboré", 2: "Mme Traoré", ... }
+
+
 // =============================================
 // INITIALISATION — dès que la page charge
 // =============================================
@@ -55,6 +61,7 @@ async function chargerModules() {
     select.innerHTML = '<option value="">-- Choisir un module --</option>'
 
     liste.forEach(ec => {
+      dico[ec.id] = ec.nom
       const option = document.createElement('option')
       option.value = ec.id
       option.textContent = ec.nom
@@ -79,6 +86,7 @@ async function chargerEnseignants() {
     select.innerHTML = '<option value="">-- Choisir un enseignant --</option>'
 
     liste.forEach(e => {
+      dicoEnseignants[e.id] = `${e.prenom} ${e.nom}`
       const option = document.createElement('option')
       option.value = e.id
       option.textContent = `${e.prenom} ${e.nom}`
@@ -97,14 +105,14 @@ async function chargerEmplois() {
   try {
     // On filtre les emplois du temps par classe_id
     const res = await fetch(
-      `http://localhost:5000/api/planning?classe_id=${CLASSE_ID}`
+      `http://localhost:5000/api/emplois-du-temps?classe_id=${CLASSE_ID}`
     )
     if (!res.ok) throw new Error()
     const data = await res.json()
 
     return data.map(e => ({
       id: e.id,
-      title: `${e.ec_nom} — ${e.enseignant_nom}`,
+      title: `${dicoECs[e.ec_id] || 'Module inconnu'}` - ${dicoEnseignents[e.enseigant_id] || 'Enseignant inconnu'},
       start: `${e.date}T${e.heure_debut}`,
       end: `${e.date}T${e.heure_fin}`,
       backgroundColor: '#3b82f6',
@@ -191,7 +199,7 @@ async function enregistrer() {
   const date = dateSelectionnee.split('T')[0]
 
   try {
-    const res = await fetch('http://localhost:5000/api/planning', {
+    const res = await fetch('http://localhost:5000/api/emplois-du-temps', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -234,7 +242,7 @@ async function confirmerSuppression() {
 
   try {
     const res = await fetch(
-      `http://localhost:5000/api/planning/${coursASupprimer}`,
+      `http://localhost:5000/api/emplois-du-temps/${coursASupprimer}`,
       { method: 'DELETE' }
     )
 
