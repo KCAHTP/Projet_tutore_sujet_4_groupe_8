@@ -1,4 +1,15 @@
+body{
+display: block !important;
+justify-content:unset !important;
+align-items: unset !important;
+height: auto !important;    
+}
+
+
+
+
 .main-content {
+    margin-left: 27Opx;
     padding: 30px;
     min-height: 100vh;
     box-sizing: border-box;
@@ -19,6 +30,8 @@
     text-align: center;
     min-width: 0;
     box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    width: auto !important;
+    animation: none !important;
 }
 
 .card h3 {
@@ -101,20 +114,7 @@ tr:nth-child(even) {
         grid-template-columns: repeat(2, 1fr);
     }
 }
-/* Annule les styles de global.css qui cassent cette page */
-body {
-    display: block !important;
-    justify-content: unset !important;
-    align-items: unset !important;
-    height: auto !important;
-}
 
-.main-content {
-    margin-left: 270px;
-    padding: 30px;
-    min-height: 100vh;
-    box-sizing: border-box;
-}
 
 /* Cards */
 .cards {
@@ -205,7 +205,7 @@ th {
 tr:nth-child(even) {
     background: #f9f9f9;
 }
-
+/*responsive*/
 @media (max-width: 768px) {
     .main-content {
         margin-left: 0;
