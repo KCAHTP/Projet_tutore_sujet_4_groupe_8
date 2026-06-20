@@ -20,11 +20,11 @@
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             // Récupération du nom de la classe depuis le localStorage
-            const className = localStorage.getItem('className');
+            const className = localStorage.getItem('classe_choisie');
             const welcomeMessage = document.getElementById('welcomeMessage');
 
-            if (className) {
-                welcomeMessage.textContent = `Bienvenue dans la classe ${className}`;
+            if (classe_choisie) {
+                welcomeMessage.textContent = `Bienvenue dans la classe ${classe_choisie}`;
             } else {
                 welcomeMessage.textContent = "Bienvenue (Aucune classe sélectionnée)";
             }
