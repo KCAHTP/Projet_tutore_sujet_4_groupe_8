@@ -119,6 +119,9 @@ async function ajouterEnseignant() {
   }
 
   try {
+
+    //!!!!!!!!!!!!!!!!
+    // !!!!!!!!!!!!!!!!la route a ajoute pour renvoyer au back
     const res = await fetch('http://localhost:5000/api/enseignants', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
