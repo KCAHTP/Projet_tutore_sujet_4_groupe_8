@@ -1,3 +1,6 @@
+const form = document.getElementById("loginForm");
+const errorMessage = document.getElementById("errorMessage");
+
 form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
