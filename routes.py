@@ -45,6 +45,12 @@ def serialize_enseignant(en):
     return {"id": en.id, "nom": en.nom, "prenom": en.prenom}
 
 
+# ACCUEIL
+
+@bp.route("/")
+def accueil():
+    return {"status": "API opérationnelle", "message": "Plateforme de gestion des cours - ESI"}
+
 # EMPLOIS DU TEMPS
 
 @bp.route("/api/emplois-du-temps", methods=["GET"])
