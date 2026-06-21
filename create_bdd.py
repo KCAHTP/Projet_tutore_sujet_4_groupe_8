@@ -4,9 +4,11 @@ from routes import bp
 from alertes import alerte_bp
 from evaluations import eval_bp
 from statistiques import stats_bp
+from flask_cors import CORS
 import os
 
 app = Flask(__name__)
+CORS(app)
 app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get(
     "DATABASE_URL", "sqlite:///plateforme.db"
 )
