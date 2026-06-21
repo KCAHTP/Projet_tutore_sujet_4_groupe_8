@@ -4,9 +4,12 @@ from routes import bp
 from alertes import alerte_bp
 from evaluations import eval_bp
 from statistiques import stats_bp
+import os
 
 app = Flask(__name__)
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///plateforme.db"
+app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get(
+    "DATABASE_URL", "sqlite:///plateforme.db"
+)
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 bdd.init_app(app)
