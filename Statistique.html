@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Statistiques</title>
+    <link rel="stylesheet" href="global.css">
+    <link rel="stylesheet" href="Statistique.css">
+</head>
+<body>
+
+             <div class="main-content">
+        <h1>Statistiques des évaluations</h1>
+
+        <div class="cards">
+            <div class="card">
+                <h3>Total évaluations</h3>
+                <p id="total">0</p>
+            </div>
+            <div class="card">
+                <h3>Terminées</h3>
+                <p id="terminees">0</p>
+            </div>
+            <div class="card">
+                <h3>Planifiées</h3>
+                <p id="planifiees">0</p>
+            </div>
+            <div class="card">
+                <h3>En cours</h3>
+                <p id="encours">0</p>
+            </div>
+            <div class="card">
+                <h3>En retard</h3>
+                <p id="retard">0</p>
+            </div>
+        </div>
+
+        <h2>Avancement global</h2>
+
+        <div class="progress-card">
+            <div class="progress-container">
+                <div id="progress-bar"></div>
+            </div>
+            <p id="pourcentage"></p>
+        </div>
+
+        <h2>Statistiques par classe</h2>
+
+        <div class="table-card">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Classe</th>
+                        <th>Total</th>
+                        <th>Terminées</th>
+                        <th>Avancement</th>
+                    </tr>
+                </thead>
+                <tbody id="table-classes"></tbody>
+            </table>
+        </div>
+
+    </div>
+
+    <script src="Sidebar.js"></script>
+    <script src="Statistique.js"></script>
+
+</body>
+</html>

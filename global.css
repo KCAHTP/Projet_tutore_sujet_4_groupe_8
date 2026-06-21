@@ -1,0 +1,68 @@
+/* 1. Variables de couleurs (Facile à modifier plus tard) */
+:root {
+    --vert-fonce: #1e5a3a;
+    --blanc: #ffffff;
+    --gris-leger: #f9f9f9;
+    --ombre: rgba(0, 0, 0, 0.3);
+}
+
+/* 2. Style global du corps */
+body {
+    background-color: var(--vert-fonce);
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* 3. Style du Cadre (Card) */
+.card {
+    background: var(--blanc);
+    padding: 2.5rem;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px var(--ombre);
+    width: 350px;
+    text-align: center;
+}
+
+/* 4. Style du Menu Déroulant */
+.styled-select {
+    width: 100%;
+    padding: 15px;
+    margin: 20px 0;
+    border: 2px solid var(--vert-fonce);
+    border-radius: 10px;
+    background-color: var(--gris-leger);
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+/* 5. Style du bouton */
+button {
+    width: 100%;
+    padding: 12px;
+    background-color: var(--vert-fonce);
+    color: var(--blanc);
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+button:hover {
+    background-color: #16462c; /* Un vert légèrement plus sombre au survol */
+}
+
+/* 6. Petit truc en plus : Animation d'apparition du cadre */
+.card {
+    animation: fadeIn 0.8s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestion des Précédences</title>
+    <link rel="stylesheet" href="precedence.css">
+    <link rel="stylesheet" href="global.css">
+</head>
+<body>
+
+    <form id="precedenceForm">
+        <h1>Gestion des Précédences</h1>
+        
+        <label for="moduleSelect">Module :</label>
+        <select id="moduleSelect" required>            
+            <option value="">Chargement...</option>
+        </select>
+
+        <label for="predecesseurSelect">Doit être validé avant :</label>
+        <select id="predecesseurSelect" required>            
+            <option value="">Chargement...</option>
+        </select>
+
+        <button type="submit">Enregistrer la précédence</button>
+    </form>
+
+    <script src="precedence.js"></script>
+    <script src="Sidebar.js"></script>
+</body>
+</html>

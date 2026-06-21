@@ -1,0 +1,25 @@
+/* On s'assure que le conteneur occupe tout l'espace libre à droite de la Sidebar */
+.main-content {
+    display: grid;
+    place-items: center; /* Centre parfaitement verticalement et horizontalement */
+    height: 100vh;       /* Occupe toute la hauteur de la fenêtre */
+    padding-left: 250px; /* Décale le contenu pour ne pas passer sous la Sidebar */
+}
+
+/* Le texte dynamique */
+#welcomeMessage {
+    color:#FFD700;           /* Or éclatant (très visible sur vert foncé) */
+    font-size: 4rem;          /* Très grande taille */
+    font-family: 'Arial', sans-serif;
+    font-weight: 800;         /* Très épais */
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.5); /* Ombre pour donner du relief */
+    text-align: center;
+    margin: 0;
+}
+
+body {
+  display: block !important;
+  height: auto !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
