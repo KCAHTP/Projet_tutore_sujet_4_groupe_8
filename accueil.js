@@ -36,7 +36,7 @@ async function chargerClasses() {
 
     try {
         // /api/classes — route définie dans routes.py
-        const res = await fetch('http://localhost:5000/api/classes')
+        const res = await fetch(`${API_URL}/api/classes`)
         if (!res.ok) throw new Error()
         const classes = await res.json()
 

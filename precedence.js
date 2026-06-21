@@ -27,7 +27,7 @@ async function chargerModules() {
 
     try {
         // /api/ec?classe_id=... — route définie dans routes.py
-        const res = await fetch(`http://localhost:5000/api/ec?classe_id=${CLASSE_ID}`)
+        const res = await fetch(`${API_URL}/api/ec?classe_id=${CLASSE_ID}`)
         if (!res.ok) throw new Error()
         const ecs = await res.json()
 
@@ -79,7 +79,7 @@ document.getElementById('precedenceForm').addEventListener('submit', async (e) =
     try {
         // /api/precedences POST — route définie dans routes.py
         // body attendu : { ec_avant_id, ec_apres_id }
-        const res = await fetch('http://localhost:5000/api/precedences', {
+        const res = await fetch(`${API_URL}/api/precedences`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({

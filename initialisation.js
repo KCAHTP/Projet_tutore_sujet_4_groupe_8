@@ -22,7 +22,7 @@ function fermerFormulaire() {
 async function chargerClassesDansSelect() {
   try {
     // /api/classes — route définie dans routes.py
-    const res = await fetch('http://localhost:5000/api/classes')
+    const res = await fetch(`${API_URL}/api/classes`)
     if (!res.ok) throw new Error()
     const classes = await res.json()
  
@@ -88,7 +88,7 @@ async function chargerClassesDansSelect() {
 // =============================================
 async function chargerEnseignantsDansSelect() {
   try {
-    const res = await fetch('http://localhost:5000/api/enseignants')
+    const res = await fetch(`${API_URL}/api/enseignants`)
     if (!res.ok) throw new Error()
     const liste = await res.json()
     const select = document.getElementById('ec-enseignant')
@@ -122,7 +122,7 @@ async function ajouterEnseignant() {
 
     //!!!!!!!!!!!!!!!!
     // !!!!!!!!!!!!!!!!la route a ajoute pour renvoyer au back
-    const res = await fetch('http://localhost:5000/api/enseignants', {
+    const res = await fetch(`${API_URL}/api/enseignants`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ nom, prenom, disponibilites: dispo })
@@ -154,7 +154,7 @@ async function ajouterEC() {
   }
 
   try {
-    const res = await fetch('http://localhost:5000/api/ec', {
+    const res = await fetch(`${API_URL}/api/ec`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({

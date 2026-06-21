@@ -52,7 +52,7 @@ async function chargerModules() {
   try {
     // On filtre les modules par classe_id
     const res = await fetch(
-      `http://localhost:5000/api/ec?classe_id=${CLASSE_ID}`
+      `${API_URL}/api/ec?classe_id=${CLASSE_ID}`
     )
     if (!res.ok) throw new Error()
     const liste = await res.json()
@@ -78,7 +78,7 @@ async function chargerModules() {
 // =============================================
 async function chargerEnseignants() {
   try {
-    const res = await fetch('http://localhost:5000/api/enseignants')
+    const res = await fetch(`${API_URL}/api/enseignants`)
     if (!res.ok) throw new Error()
     const liste = await res.json()
 
@@ -105,7 +105,7 @@ async function chargerEmplois() {
   try {
     // On filtre les emplois du temps par classe_id
     const res = await fetch(
-      `http://localhost:5000/api/emplois-du-temps?classe_id=${CLASSE_ID}`
+      `${API_URL}/api/emplois-du-temps?classe_id=${CLASSE_ID}`
     )
     if (!res.ok) throw new Error()
     const data = await res.json()
@@ -199,7 +199,7 @@ async function enregistrer() {
   const date = dateSelectionnee.split('T')[0]
 
   try {
-    const res = await fetch('http://localhost:5000/api/emplois-du-temps', {
+    const res = await fetch(`${API_URL}/api/emplois-du-temps`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -242,7 +242,7 @@ async function confirmerSuppression() {
 
   try {
     const res = await fetch(
-      `http://localhost:5000/api/emplois-du-temps/${coursASupprimer}`,
+      `${API_URL}/api/emplois-du-temps/${coursASupprimer}`,
       { method: 'DELETE' }
     )
 

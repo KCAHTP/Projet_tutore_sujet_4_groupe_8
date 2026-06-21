@@ -32,7 +32,7 @@ async function chargerDevoirs() {
 
     try {
         // /api/evaluations — route définie dans evaluations.py
-        const res = await fetch('http://localhost:5000/api/evaluations')
+        const res = await fetch(`${API_URL}/api/evaluations`)
         if (!res.ok) throw new Error()
         const evaluations = await res.json()
 
@@ -99,7 +99,7 @@ function afficherDevoirs(liste) {
 async function validerDevoir(devoirId, statutChoisi) {
     try {
         // PUT /api/evaluations/<id> — route définie dans evaluations.py
-        const res = await fetch(`http://localhost:5000/api/evaluations/${devoirId}`, {
+        const res = await fetch(`${API_URL}/api/evaluations/${devoirId}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ statut: statutChoisi })

@@ -11,8 +11,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     try {
         // Remplacez '/api/ec' par l'URL réelle de votre backend
         const [resEcs,resEnseignants] = await Promise.all([
-            fetch(`http://localhost:5000/api/ec?classe_id=${classeId}`),
-            fetch(`http://localhost:5000/api/enseigants`)
+            fetch(`${API_URL}/api/ec?classe_id=${classeId}`),
+            fetch(`${API_URL}/api/enseignants`)
         ])
 
 
