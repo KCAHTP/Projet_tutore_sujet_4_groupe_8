@@ -1,5 +1,6 @@
 from flask import Blueprint, request, jsonify
 from modele_bdd import bdd, Evaluation
+from datetime import datetime
 
 eval_bp = Blueprint('evaluations', __name__)
 
@@ -34,13 +35,14 @@ def update_evaluation(id):
 
 
 # Route 3 : Ajouter une évaluation
+
 @eval_bp.route('/evaluations', methods=['POST'])
 def add_evaluation():
     data = request.get_json()
     nouvelle = Evaluation(
         ec_id=data['ec_id'],
         classe_id=data['classe_id'],
-        date=data['date'],
+        date=datetime.strptime(data['date'], "%Y-%m-%d").date(),
         type=data['type'],
         statut=data['statut']
     )
