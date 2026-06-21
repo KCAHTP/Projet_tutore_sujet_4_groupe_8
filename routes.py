@@ -146,3 +146,15 @@ def liste_classes():
 def liste_enseignants():
     enseignants = Enseignant.query.all()
     return jsonify([serialize_enseignant(en) for en in enseignants])
+
+@bp.route("/api/enseignants", methods=["POST"])
+def ajouter_enseignant():
+    data = request.get_json()
+    nouvel_enseignant = Enseignant(
+        nom=data["nom"],
+        prenom=data["prenom"],
+        disponibilites=data.get("disponibilites"),
+    )
+    bdd.session.add(nouvel_enseignant)
+    bdd.session.commit()
+    return jsonify(serialize_enseignant(nouvel_enseignant)), 201
