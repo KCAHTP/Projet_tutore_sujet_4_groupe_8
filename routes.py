@@ -1,5 +1,6 @@
 from flask import Blueprint, request, jsonify
 from modele_bdd import bdd, EmploiDuTemps, Precedence, EC, Classe, Enseignant
+from datetime import datetime
 
 bp = Blueprint("main", __name__)
 
@@ -59,9 +60,9 @@ def ajouter_emploi():
         ec_id=data["ec_id"],
         classe_id=data["classe_id"],
         enseignant_id=data["enseignant_id"],
-        date=data["date"],
-        heure_debut=data["heure_debut"],
-        heure_fin=data["heure_fin"],
+        date=datetime.strptime(data["date"], "%Y-%m-%d").date(),
+        heure_debut=datetime.strptime(data["heure_debut"], "%H:%M").time(),
+        heure_fin=datetime.strptime(data["heure_fin"], "%H:%M").time(),
     )
     bdd.session.add(nouvel_emploi)
     bdd.session.commit()
