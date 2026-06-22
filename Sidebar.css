@@ -118,3 +118,11 @@
         padding-top: 4rem;
     }
 }
+
+/* Décalage du contenu principal (Ordis)*/
+@media (min-width: 769px) {
+    .content,
+    .main-content {
+        margin-left: 250px;
+    }
+}
