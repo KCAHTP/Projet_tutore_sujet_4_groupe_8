@@ -1,5 +1,6 @@
-document.addEventListener("DOMContentLoaded", function() {
-    // 1. Injecter le CSS
+document.addEventListener("DOMContentLoaded", function () {
+
+    // CSS
     if (!document.querySelector('link[href="Sidebar.css"]')) {
         const link = document.createElement('link');
         link.rel = 'stylesheet';
@@ -7,18 +8,44 @@ document.addEventListener("DOMContentLoaded", function() {
         document.head.appendChild(link);
     }
 
-    // 2. Créer le conteneur s'il n'existe pas
-    let sidebarDiv = document.getElementById('sidebar-container');
-    if (!sidebarDiv) {
-        sidebarDiv = document.createElement('div');
-        sidebarDiv.id = 'sidebar-container';
-        document.body.prepend(sidebarDiv);
+    // Conteneur
+    let container = document.getElementById('sidebar-container');
+    if (!container) {
+        container = document.createElement('div');
+        container.id = 'sidebar-container';
+        document.body.prepend(container);
     }
 
-    // 3. Charger le HTML
+    // Chargement HTML
     fetch('Sidebar.html')
-        .then(response => response.text())
-        .then(data => {
-            sidebarDiv.innerHTML = data;
+        .then(r => r.text())
+        .then(html => {
+            container.innerHTML = html;
+
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebar-overlay');
+            const btn = document.getElementById('hamburger-btn');
+
+            // Lien actif
+            const links = sidebar.querySelectorAll('nav a');
+            links.forEach(link => {
+                if (link.href === location.href) {
+                    link.classList.add('active');
+                }
+            });
+
+            // Toggle hamburger
+            btn.addEventListener('click', () => {
+                const isOpen = sidebar.classList.toggle('open');
+                overlay.classList.toggle('visible', isOpen);
+                btn.classList.toggle('open', isOpen);
+            });
+
+            // Fermer en cliquant sur l'overlay
+            overlay.addEventListener('click', () => {
+                sidebar.classList.remove('open');
+                overlay.classList.remove('visible');
+                btn.classList.remove('open');
+            });
         });
 });
