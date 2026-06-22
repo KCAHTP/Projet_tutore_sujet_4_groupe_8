@@ -142,8 +142,11 @@ def ajouter_ec():
 
 
 @bp.route("/api/ec/<int:id>", methods=["DELETE"])
+@bp.route("/api/ec/<int:id>", methods=["DELETE"])
 def supprimer_ec(id):
     ec = EC.query.get_or_404(id)
+    if ec.emplois_du_temps or ec.evaluations:
+        return jsonify({"message": "Impossible : ce module a des emplois du temps ou évaluations associés. Supprimez-les d'abord."}), 400
     bdd.session.delete(ec)
     bdd.session.commit()
     return jsonify({"message": "supprimé"}), 200
@@ -177,9 +180,8 @@ def ajouter_enseignant():
 @bp.route("/api/enseignants/<int:id>", methods=["DELETE"])
 def supprimer_enseignant(id):
     enseignant = Enseignant.query.get_or_404(id)
-    # Vérifie si des EC sont liés à cet enseignant
     if enseignant.ecs:
-        return jsonify({"message": "Impossible de supprimer : cet enseignant a des modules (EC) associés. Supprimez-les d'abord."}), 400
+        return jsonify({"message": "Impossible : cet enseignant a des modules associés. Supprimez-les d'abord."}), 400
     bdd.session.delete(enseignant)
     bdd.session.commit()
     return jsonify({"message": "supprimé"}), 200

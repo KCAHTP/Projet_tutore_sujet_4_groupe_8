@@ -173,17 +173,18 @@ async function supprimerEnseignant(id) {
 
 // SUPPRIMER UN EC
 async function supprimerEC(id) {
-  if (!confirm('Supprimer ce module ?')) return
-  try {
-    const res = await fetch(`${API_URL}/api/ec/${id}`, { method: 'DELETE' })
-    if (res.ok) {
-      chargerTableauEC()
-    } else {
-      alert('Erreur lors de la suppression')
+    if (!confirm('Supprimer ce module ?')) return
+    try {
+        const res = await fetch(`${API_URL}/api/ec/${id}`, { method: 'DELETE' })
+        const data = await res.json()
+        if (res.ok) {
+            chargerTableauEC()
+        } else {
+            alert(data.message)
+        }
+    } catch {
+        alert('Erreur de connexion au serveur')
     }
-  } catch {
-    alert('Erreur de connexion au serveur')
-  }
 }
 
 // AJOUTER UN ENSEIGNANT
