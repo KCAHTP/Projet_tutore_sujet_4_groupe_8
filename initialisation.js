@@ -156,18 +156,19 @@ async function chargerTableauEC() {
 
 // SUPPRIMER UN ENSEIGNANT
 async function supprimerEnseignant(id) {
-  if (!confirm('Supprimer cet enseignant ?')) return
-  try {
-    const res = await fetch(`${API_URL}/api/enseignants/${id}`, { method: 'DELETE' })
-    if (res.ok) {
-      chargerTableauEnseignants()
-      chargerEnseignantsDansSelect()
-    } else {
-      alert('Erreur lors de la suppression')
+    if (!confirm('Supprimer cet enseignant ?')) return
+    try {
+        const res = await fetch(`${API_URL}/api/enseignants/${id}`, { method: 'DELETE' })
+        const data = await res.json()
+        if (res.ok) {
+            chargerTableauEnseignants()
+            chargerEnseignantsDansSelect()
+        } else {
+            alert(data.message)
+        }
+    } catch {
+        alert('Erreur de connexion au serveur')
     }
-  } catch {
-    alert('Erreur de connexion au serveur')
-  }
 }
 
 // SUPPRIMER UN EC

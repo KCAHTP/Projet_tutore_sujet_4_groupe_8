@@ -177,6 +177,9 @@ def ajouter_enseignant():
 @bp.route("/api/enseignants/<int:id>", methods=["DELETE"])
 def supprimer_enseignant(id):
     enseignant = Enseignant.query.get_or_404(id)
+    # Vérifie si des EC sont liés à cet enseignant
+    if enseignant.ecs:
+        return jsonify({"message": "Impossible de supprimer : cet enseignant a des modules (EC) associés. Supprimez-les d'abord."}), 400
     bdd.session.delete(enseignant)
     bdd.session.commit()
     return jsonify({"message": "supprimé"}), 200
