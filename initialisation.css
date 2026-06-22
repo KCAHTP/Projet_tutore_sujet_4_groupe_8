@@ -1,10 +1,13 @@
 :root {
-    --vert-fonce: #1e5a3a;   /* fond global */
-    --vert-pale: #e8f3ed;    /* sidebar très clair */
+    --vert-fonce: #1e5a3a;
+    --vert-pale: #e8f3ed;
+    --vert-moyen: #2d7a52;
     --blanc: #ffffff;
+    --gris-clair: #f5f5f5;
+    --gris-bordure: #ddd;
+    --rouge: #c0392b;
 }
 
-/* RESET */
 * {
     margin: 0;
     padding: 0;
@@ -12,98 +15,52 @@
     font-family: Arial, sans-serif;
 }
 
-/* FOND GLOBAL */
 body {
     background: var(--vert-fonce);
+    display: block;
+    height: auto;
 }
 
 /* LAYOUT */
-.layout {
-    display: flex;
-    min-height: 100vh;
-}
-
-
-/* Exemple : si l'écran est petit (téléphone) */
-@media (max-width: 768px) {
-    .sidebar {
-        width: 100%;
-        height: auto;
-        position: relative;
-    }
-    .main-content {
-        margin-left: 0;
-    }
-}
-
-/* SIDEBAR ULTRA PÂLE */
-.sidebar {
-    width: 250px;
-    background: var(--vert-pale);
-    color: var(--vert-fonce);
-    padding: 20px;
-    position: fixed;
-    height: 100vh;
-    overflow-y: auto;
-}
-
-.sidebar h3 {
-    margin-bottom: 25px;
-    color: var(--vert-fonce);
-}
-
-.sidebar ul {
-    list-style: none;
-}
-
-.sidebar ul li {
-    margin: 15px 0;
-}
-
-.sidebar ul li a {
-    color: var(--vert-fonce);
-    text-decoration: none;
-    display: block;
-    padding: 10px;
-    border-radius: 6px;
-    transition: 0.2s;
-}
-
-.sidebar ul li a:hover {
-    background: var(--vert-fonce);
-    color: var(--blanc);
-}
-
-/* CONTENU */
 .content {
     margin-left: 250px;
-    flex: 1;
-    padding: 20px;
+    padding: 2rem;
+    min-height: 100vh;
     background: var(--vert-fonce);
 }
 
-/* CONTAINER (CARTE BLANCHE) */
+/* CARTE PRINCIPALE */
 .container {
     background: var(--blanc);
-    border-radius: 10px;
-    padding: 20px;
-    border-top: 6px solid var(--vert-pale);
+    border-radius: 12px;
+    padding: 2rem;
+    border-top: 6px solid var(--vert-moyen);
 }
 
-/* BOUTONS */
+.container h2 {
+    font-size: 1.4rem;
+    color: var(--vert-fonce);
+    margin-bottom: 1.5rem;
+}
+
+/* BOUTONS CHOIX */
 .boutons-choix {
     display: flex;
-    gap: 15px;
-    margin: 20px 0;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
 }
 
 .btn-choix {
+    flex: 1;
     border: 2px solid var(--vert-fonce);
     background: var(--blanc);
     color: var(--vert-fonce);
-    padding: 10px 15px;
+    padding: 0.75rem 1rem;
     cursor: pointer;
-    border-radius: 6px;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    transition: 0.2s;
 }
 
 .btn-choix:hover {
@@ -113,66 +70,165 @@ body {
 
 /* FORMULAIRES */
 .formulaire {
-    margin-top: 20px;
-    padding: 15px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    border: 1px solid var(--gris-bordure);
+    border-radius: 10px;
+    background: var(--gris-clair);
+}
+
+.formulaire h3 {
+    font-size: 1rem;
+    color: var(--vert-fonce);
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
 }
 
 .champ {
-    margin-bottom: 15px;
+    margin-bottom: 1rem;
     display: flex;
     flex-direction: column;
 }
 
 .champ label {
-    margin-bottom: 5px;
-    font-weight: bold;
+    margin-bottom: 0.4rem;
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: #444;
 }
 
 .champ input,
 .champ textarea,
 .champ select {
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    padding: 0.6rem 0.75rem;
+    border: 1px solid var(--gris-bordure);
+    border-radius: 6px;
+    font-size: 0.95rem;
+    background: var(--blanc);
 }
 
-/* ACTIONS */
+.champ input:focus,
+.champ textarea:focus,
+.champ select:focus {
+    outline: none;
+    border-color: var(--vert-moyen);
+}
+
 .form-actions {
     display: flex;
-    gap: 10px;
+    gap: 0.75rem;
+    margin-top: 0.5rem;
 }
 
 .btn-save {
     background: var(--vert-fonce);
     color: var(--blanc);
     border: none;
-    padding: 10px 15px;
+    padding: 0.65rem 1.25rem;
     border-radius: 6px;
     cursor: pointer;
+    font-weight: 600;
+    transition: 0.2s;
+}
+
+.btn-save:hover {
+    background: var(--vert-moyen);
 }
 
 .btn-cancel {
     background: #ccc;
     border: none;
-    padding: 10px 15px;
+    padding: 0.65rem 1.25rem;
     border-radius: 6px;
     cursor: pointer;
+    font-weight: 600;
+    transition: 0.2s;
 }
 
-.footer {
-    background: var(--vert-pale);
-    color: var(--vert-fonce);
-    text-align: center;
-    padding: 15px;
-    margin-top: 20px;
-    border-radius: 10px;
-    font-size: 14px;
+.btn-cancel:hover {
+    background: #bbb;
 }
-body {
-  display: block !important;
-  height: auto !important;
-  margin: 0 !important;
-  padding: 0 !important;
+
+/* SECTIONS TABLEAUX */
+.table-section {
+    margin-top: 2rem;
+}
+
+.table-section h3 {
+    font-size: 1rem;
+    color: var(--vert-fonce);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--vert-pale);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+thead tr {
+    background: var(--vert-pale);
+}
+
+th {
+    padding: 0.75rem 1rem;
+    text-align: left;
+    font-size: 0.85rem;
+    color: var(--vert-fonce);
+    font-weight: 700;
+}
+
+/* Masque l'en-tête Action */
+th:last-child {
+    visibility: hidden;
+    width: 120px;
+}
+
+tbody tr {
+    border-bottom: 1px solid var(--gris-bordure);
+    transition: background 0.15s;
+}
+
+tbody tr:hover {
+    background: var(--gris-clair);
+}
+
+td {
+    padding: 0.85rem 1rem;
+    font-size: 0.95rem;
+    color: #333;
+    vertical-align: middle;
+}
+
+/* BOUTON SUPPRIMER */
+.btn-delete {
+    background: var(--vert-fonce);
+    color: var(--blanc);
+    border: none;
+    padding: 0.45rem 0.9rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 600;
+    transition: 0.2s;
+}
+
+.btn-delete:hover {
+    background: var(--rouge);
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .content {
+        margin-left: 0;
+        padding: 1rem;
+    }
+    .boutons-choix {
+        flex-direction: column;
+    }
 }

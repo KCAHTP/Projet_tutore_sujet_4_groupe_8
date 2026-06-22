@@ -1,59 +1,32 @@
-// =============================================
-// EMPLOI.JS
-// La classe est déjà choisie et stockée
-// dans localStorage — on lit et on adapte
-// =============================================
 console.log("EMPLOI JS CHARGE");
-// =============================================
-// LECTURE DU LOCALSTORAGE — classe déjà choisie
-// =============================================
+
 const CLASSE_ID = localStorage.getItem('classe_id')
 const CLASSE_NOM = localStorage.getItem('classe_choisie')
 
-// Variables globales
 let dateSelectionnee = ''
 let coursASupprimer = null
 let calendar
 
+const dicoECs = {}
+const dicoEnseignants = {}
 
-// Dictionnaires id → nom pour résoudre les noms côté front
-const dicoECs = {}        // { 1: "Algorithmique", 2: "Réseaux", ... }
-const dicoEnseignants = {} // { 1: "M. Kaboré", 2: "Mme Traoré", ... }
-
-
-// =============================================
-// INITIALISATION — dès que la page charge
-// =============================================
 document.addEventListener('DOMContentLoaded', async () => {
-
-  // Sécurité — si pas de classe choisie, retour à l'accueil
   if (!CLASSE_ID || !CLASSE_NOM) {
     window.location.href = 'accueil.html'
     return
   }
 
-  // Adapte le titre avec le nom de la classe
-  document.getElementById('titre-classe').textContent =
-    `Emploi Du Temps — ${CLASSE_NOM}`
-
-  // Adapte le titre de l'onglet navigateur
+  document.getElementById('titre-classe').textContent = `Emploi Du Temps — ${CLASSE_NOM}`
   document.title = `Emploi du Temps — ${CLASSE_NOM}`
 
-  // Charge les menus et le calendrier
   await chargerModules()
   await chargerEnseignants()
   await initialiserCalendrier()
 })
 
-// =============================================
-// CHARGER LES MODULES DE LA CLASSE CHOISIE
-// =============================================
 async function chargerModules() {
   try {
-    // On filtre les modules par classe_id
-    const res = await fetch(
-      `${API_URL}/api/ec?classe_id=${CLASSE_ID}`
-    )
+    const res = await fetch(`${API_URL}/api/ec?classe_id=${CLASSE_ID}`)
     if (!res.ok) throw new Error()
     const liste = await res.json()
 
@@ -61,21 +34,17 @@ async function chargerModules() {
     select.innerHTML = '<option value="">-- Choisir un module --</option>'
 
     liste.forEach(ec => {
-      dico[ec.id] = ec.nom
+      dicoECs[ec.id] = ec.nom  // BUG CORRIGÉ : dico → dicoECs
       const option = document.createElement('option')
       option.value = ec.id
       option.textContent = ec.nom
       select.appendChild(option)
     })
-
   } catch {
     console.warn('Modules non disponibles')
   }
 }
 
-// =============================================
-// CHARGER LES ENSEIGNANTS
-// =============================================
 async function chargerEnseignants() {
   try {
     const res = await fetch(`${API_URL}/api/enseignants`)
@@ -92,42 +61,32 @@ async function chargerEnseignants() {
       option.textContent = `${e.prenom} ${e.nom}`
       select.appendChild(option)
     })
-
   } catch {
     console.warn('Enseignants non disponibles')
   }
 }
 
-// =============================================
-// CHARGER LES COURS DE LA CLASSE CHOISIE
-// =============================================
 async function chargerEmplois() {
   try {
-    // On filtre les emplois du temps par classe_id
-    const res = await fetch(
-      `${API_URL}/api/emplois-du-temps?classe_id=${CLASSE_ID}`
-    )
+    const res = await fetch(`${API_URL}/api/emplois-du-temps?classe_id=${CLASSE_ID}`)
     if (!res.ok) throw new Error()
     const data = await res.json()
 
     return data.map(e => ({
       id: e.id,
-      title: `${dicoECs[e.ec_id] || 'Module inconnu'}` - ${dicoEnseignents[e.enseigant_id] || 'Enseignant inconnu'},
+      
+      title: `${dicoECs[e.ec_id] || 'Module inconnu'} - ${dicoEnseignants[e.enseignant_id] || 'Enseignant inconnu'}`,
       start: `${e.date}T${e.heure_debut}`,
       end: `${e.date}T${e.heure_fin}`,
       backgroundColor: '#3b82f6',
       borderColor: '#1d4ed8'
     }))
-
   } catch {
     console.warn('Emplois du temps non disponibles')
     return []
   }
 }
 
-// =============================================
-// INITIALISER LE CALENDRIER
-// =============================================
 async function initialiserCalendrier() {
   const emplois = await chargerEmplois()
   const el = document.getElementById('calendrier')
@@ -146,7 +105,6 @@ async function initialiserCalendrier() {
     },
     events: emplois,
 
-    // Clic sur une case vide → ouvrir modal ajout
     dateClick: function (info) {
       dateSelectionnee = info.dateStr
       document.getElementById('date-selectionnee').textContent =
@@ -156,7 +114,6 @@ async function initialiserCalendrier() {
       document.getElementById('modal').style.display = 'flex'
     },
 
-    // Clic sur un cours → ouvrir modal suppression
     eventClick: function (info) {
       coursASupprimer = info.event.id
       document.getElementById('info-cours-suppression').textContent =
@@ -171,9 +128,6 @@ async function initialiserCalendrier() {
   calendar.render()
 }
 
-// =============================================
-// FERMER MODAL AJOUT
-// =============================================
 function fermerModal() {
   document.getElementById('modal').style.display = 'none'
   document.getElementById('module').value = ''
@@ -182,9 +136,6 @@ function fermerModal() {
   document.getElementById('heure-fin').value = '10:00'
 }
 
-// =============================================
-// ENREGISTRER UN COURS → BACK
-// =============================================
 async function enregistrer() {
   const ecId = document.getElementById('module').value
   const enseignantId = document.getElementById('enseignant').value
@@ -218,25 +169,18 @@ async function enregistrer() {
       calendar.removeAllEvents()
       calendar.addEventSource(emplois)
     } else {
-      alert('Erreur lors de l\'enregistrement')
+      alert("Erreur lors de l'enregistrement")
     }
-
   } catch {
     alert('Impossible de contacter le serveur')
   }
 }
 
-// =============================================
-// FERMER MODAL SUPPRESSION
-// =============================================
 function fermerModalSuppression() {
   document.getElementById('modal-suppression').style.display = 'none'
   coursASupprimer = null
 }
 
-// =============================================
-// CONFIRMER SUPPRESSION → BACK
-// =============================================
 async function confirmerSuppression() {
   if (!coursASupprimer) return
 
@@ -252,15 +196,11 @@ async function confirmerSuppression() {
     } else {
       alert('Erreur lors de la suppression')
     }
-
   } catch {
     alert('Impossible de contacter le serveur')
   }
 }
 
-// =============================================
-// EXPORT PDF
-// =============================================
 function exporterPDF() {
   const { jsPDF } = window.jspdf
 
@@ -274,19 +214,11 @@ function exporterPDF() {
 
     pdf.setFontSize(16)
     pdf.setFont('helvetica', 'bold')
-    pdf.text(
-      `Emploi du Temps — ${CLASSE_NOM}`,
-      largeur / 2, 15,
-      { align: 'center' }
-    )
+    pdf.text(`Emploi du Temps — ${CLASSE_NOM}`, largeur / 2, 15, { align: 'center' })
 
     pdf.setFontSize(10)
     pdf.setFont('helvetica', 'normal')
-    pdf.text(
-      `Exporté le ${new Date().toLocaleDateString('fr-FR')}`,
-      largeur / 2, 22,
-      { align: 'center' }
-    )
+    pdf.text(`Exporté le ${new Date().toLocaleDateString('fr-FR')}`, largeur / 2, 22, { align: 'center' })
 
     const ratio = canvas.width / canvas.height
     const imgHauteur = (largeur - 20) / ratio

@@ -55,7 +55,11 @@ def accueil():
 
 @bp.route("/api/emplois-du-temps", methods=["GET"])
 def liste_emplois():
-    emplois = EmploiDuTemps.query.all()
+    classe_id = request.args.get("classe_id")
+    if classe_id:
+        emplois = EmploiDuTemps.query.filter_by(classe_id=classe_id).all()
+    else:
+        emplois = EmploiDuTemps.query.all()
     return jsonify([serialize_emploi(e) for e in emplois])
 
 
@@ -115,7 +119,11 @@ def supprimer_precedence(id):
 
 @bp.route("/api/ec", methods=["GET"])
 def liste_ec():
-    ecs = EC.query.all()
+    classe_id = request.args.get("classe_id")
+    if classe_id:
+        ecs = EC.query.filter_by(classe_id=classe_id).all()
+    else:
+        ecs = EC.query.all()
     return jsonify([serialize_ec(ec) for ec in ecs])
 
 
