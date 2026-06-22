@@ -217,6 +217,7 @@ td {
     .content {
         margin-left: 0;
         padding: 1rem;
+        padding-top: 4rem;
     }
     .boutons-choix {
         flex-direction: column;
