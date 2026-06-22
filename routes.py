@@ -165,3 +165,10 @@ def ajouter_enseignant():
     bdd.session.add(nouvel_enseignant)
     bdd.session.commit()
     return jsonify(serialize_enseignant(nouvel_enseignant)), 201
+
+@bp.route("/api/enseignants/<int:id>", methods=["DELETE"])
+def supprimer_enseignant(id):
+    enseignant = Enseignant.query.get_or_404(id)
+    bdd.session.delete(enseignant)
+    bdd.session.commit()
+    return jsonify({"message": "supprimé"}), 200

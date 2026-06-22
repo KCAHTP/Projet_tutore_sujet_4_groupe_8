@@ -10,11 +10,9 @@
 
 <body>
 
+  <script src="Sidebar.js"></script>
 
-
-  <!-- CONTENU PRINCIPAL -->
   <main class="content">
-
     <div class="container">
 
       <h2>Initialisation de la base de données</h2>
@@ -24,7 +22,6 @@
         <button onclick="afficherFormulaire('enseignant')" class="btn-choix">
           Ajouter un enseignant
         </button>
-
         <button onclick="afficherFormulaire('ec')" class="btn-choix">
           Ajouter un module (EC)
         </button>
@@ -33,22 +30,18 @@
       <!-- Formulaire Enseignant -->
       <div id="form-enseignant" class="formulaire" style="display:none;">
         <h3>Nouvel enseignant</h3>
-
         <div class="champ">
           <label>Nom</label>
           <input type="text" id="ens-nom" />
         </div>
-
         <div class="champ">
           <label>Prénom</label>
           <input type="text" id="ens-prenom" />
         </div>
-
         <div class="champ">
           <label>Disponibilités</label>
           <textarea id="ens-dispo"></textarea>
         </div>
-
         <div class="form-actions">
           <button onclick="ajouterEnseignant()" class="btn-save">Enregistrer</button>
           <button onclick="fermerFormulaire()" class="btn-cancel">Annuler</button>
@@ -58,48 +51,74 @@
       <!-- Formulaire EC -->
       <div id="form-ec" class="formulaire" style="display:none;">
         <h3>Nouveau module (EC)</h3>
-
         <div class="champ">
           <label>Nom du module</label>
           <input type="text" id="ec-nom" />
         </div>
-
         <div class="champ">
           <label>Volume horaire</label>
           <input type="number" id="ec-volume" min="1" />
         </div>
-
         <div class="champ">
           <label>Classe</label>
           <select id="ec-classe">
             <option value="">Chargement...</option>
           </select>
         </div>
-
         <div class="champ">
           <label>Enseignant</label>
           <select id="ec-enseignant">
             <option value="">-- Choisir un enseignant --</option>
           </select>
         </div>
-
         <div class="form-actions">
           <button onclick="ajouterEC()" class="btn-save">Enregistrer</button>
           <button onclick="fermerFormulaire()" class="btn-cancel">Annuler</button>
         </div>
       </div>
 
-    </div>
+      <!-- Tableau enseignants -->
+      <div class="table-section">
+        <h3>Enseignants enregistrés</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Nom</th>
+              <th>Prénom</th>
+              <th>Disponibilités</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="table-enseignants">
+            <tr><td colspan="4" style="text-align:center;">Chargement...</td></tr>
+          </tbody>
+        </table>
+      </div>
 
+      <!-- Tableau EC -->
+      <div class="table-section">
+        <h3>Modules (EC) enregistrés</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Nom</th>
+              <th>Volume horaire</th>
+              <th>Classe</th>
+              <th>Enseignant</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="table-ec">
+            <tr><td colspan="5" style="text-align:center;">Chargement...</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
   </main>
 
-  
-
-
-
-<script src="config.js"></script>
-<script src="initialisation.js"></script>
-<script src="Sidebar.js"></script>
+  <script src="config.js"></script>
+  <script src="initialisation.js"></script>
 
 </body>
 </html>
