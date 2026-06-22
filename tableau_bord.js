@@ -2,7 +2,7 @@
     "use strict"; // Active le mode strict pour éviter les erreurs courantes
 
     const initSidebar = () => {
-        // 1. Injection sécurisée du CSS
+        //  Injection sécurisée du CSS
         if (!document.querySelector('link[href="Sidebar.css"]')) {
             const link = document.createElement('link');
             link.rel = 'stylesheet';
@@ -10,7 +10,7 @@
             document.head.appendChild(link);
         }
 
-        // 2. Vérification de l'existence du conteneur
+        // Vérification de l'existence du conteneur
         let container = document.getElementById('sidebar-container');
         if (!container) {
             container = document.createElement('div');
@@ -19,7 +19,7 @@
             document.body.prepend(container);
         }
 
-        // 3. Fetch sécurisé
+        // Fetch sécurisé
         fetch('Sidebar.html')
             .then(response => {
                 if (!response.ok) throw new Error('Erreur chargement Sidebar.html');

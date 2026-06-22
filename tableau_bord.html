@@ -3,10 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Tableau de Bord</title>
-    <head>
     <link rel="stylesheet" href="tableau_bord.css">
     <link rel="stylesheet" href="global.css">
-</head>
 </head>
 <body>
 
@@ -16,15 +14,14 @@
     </main>
 
     <script src="Sidebar.js"></script>
-    
+
     <script>
         document.addEventListener("DOMContentLoaded", () => {
-            // Récupération du nom de la classe depuis le localStorage
             const className = localStorage.getItem('classe_choisie');
             const welcomeMessage = document.getElementById('welcomeMessage');
 
-            if (classe_choisie) {
-                welcomeMessage.textContent = `Bienvenue dans la classe ${classe_choisie}`;
+            if (className) {
+                welcomeMessage.textContent = `Bienvenue dans la classe ${className}`;
             } else {
                 welcomeMessage.textContent = "Bienvenue (Aucune classe sélectionnée)";
             }

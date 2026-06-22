@@ -11,16 +11,16 @@
     width: 100%;
     padding: 15px;
     margin: 20px 0;
-    border: 2px solid #1e5a3a; /* Vert foncé */
+    border: 2px solid #1e5a3a;
     border-radius: 10px;
     background-color: #f9f9f9;
     font-size: 1rem;
     color: #333;
     cursor: pointer;
-    appearance: none; /* Enlève le style par défaut du navigateur */
+    appearance: none; 
 }
 
 .styled-select:focus {
     outline: none;
-    border-color: #2e8b57; /* Vert un peu plus clair au clic */
+    border-color: #2e8b57; 
 }

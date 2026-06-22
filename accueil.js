@@ -1,9 +1,3 @@
-// =============================================
-// ACCUEIL.JS
-// Charge les classes depuis le back et
-// gère la sélection + redirection
-// =============================================
-
 document.addEventListener('DOMContentLoaded', () => {
     chargerClasses()
 
@@ -16,7 +10,8 @@ document.addEventListener('DOMContentLoaded', () => {
             return
         }
 
-        // La valeur est au format "id|nom" ex: "3|L3 - ISI"
+        // La valeur est au format "id|nom"
+
         const [id, nom] = valeur.split('|')
 
         // Stockage avec les mêmes clés que emploi.js, suivi.js, etc.
@@ -28,9 +23,9 @@ document.addEventListener('DOMContentLoaded', () => {
     })
 })
 
-// =============================================
-// CHARGER LES CLASSES DEPUIS LE BACK
-// =============================================
+
+// CHARGER LES CLASSES DEPUIS LE BACKEND
+
 async function chargerClasses() {
     const select = document.getElementById('classeSelect')
 
@@ -41,17 +36,16 @@ async function chargerClasses() {
         const classes = await res.json()
 
         // Réinitialise le select
+
         select.innerHTML = '<option value="" disabled selected>-- Choisissez votre classe --</option>'
 
         // On regroupe les classes par niveau pour faire des <optgroup>
-        // Ex: { "L1": [...], "L2": [...], "L3": [...], "M1": [...], "M2": [...] }
         const parNiveau = {}
         classes.forEach(c => {
             if (!parNiveau[c.niveau]) parNiveau[c.niveau] = []
             parNiveau[c.niveau].push(c)
         })
 
-        // Ordre d'affichage souhaité
         const ordreNiveaux = ['L1', 'L2', 'L3', 'M1', 'M2']
 
         ordreNiveaux.forEach(niveau => {
@@ -59,14 +53,14 @@ async function chargerClasses() {
             if (!groupe) return
 
             if (groupe.length === 1) {
-                // Pas de groupe si un seul élément (ex: L1, L2)
+            
                 const c = groupe[0]
                 const option = document.createElement('option')
                 option.value = `${c.id}|${niveau} - ${c.nom}`
                 option.textContent = `${niveau} - ${c.nom}`
                 select.appendChild(option)
             } else {
-                // Plusieurs classes dans ce niveau → <optgroup>
+                
                 const optgroup = document.createElement('optgroup')
                 optgroup.label = niveau === 'L3' ? 'Licence 3'
                                : niveau === 'M1' ? 'Master 1'
@@ -85,7 +79,7 @@ async function chargerClasses() {
         })
 
     } catch {
-        // Si le back est indisponible, on affiche un message
+        // Si le backend est indisponible, on affiche un message
         select.innerHTML = '<option value="" disabled selected>-- Erreur de chargement --</option>'
         console.warn('Impossible de charger les classes depuis le serveur')
     }
