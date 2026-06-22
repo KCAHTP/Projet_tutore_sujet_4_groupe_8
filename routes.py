@@ -142,7 +142,6 @@ def ajouter_ec():
 
 
 @bp.route("/api/ec/<int:id>", methods=["DELETE"])
-@bp.route("/api/ec/<int:id>", methods=["DELETE"])
 def supprimer_ec(id):
     ec = EC.query.get_or_404(id)
     if ec.emplois_du_temps or ec.evaluations:

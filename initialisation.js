@@ -176,13 +176,16 @@ async function supprimerEC(id) {
     if (!confirm('Supprimer ce module ?')) return
     try {
         const res = await fetch(`${API_URL}/api/ec/${id}`, { method: 'DELETE' })
-        const data = await res.json()
+        const text = await res.text()
+        console.log("Réponse brute :", text)
+        const data = JSON.parse(text)
         if (res.ok) {
             chargerTableauEC()
         } else {
             alert(data.message)
         }
-    } catch {
+    } catch (err) {
+        console.error("Erreur catch :", err)
         alert('Erreur de connexion au serveur')
     }
 }
