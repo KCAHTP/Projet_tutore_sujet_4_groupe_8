@@ -15,29 +15,22 @@
     font-family: Arial, sans-serif;
 }
 
-body {
-    background: var(--vert-fonce);
-    display: block;
+html, body {
     height: auto;
+    min-height: 100vh;
+    background: var(--vert-fonce);
 }
 
-/* LAYOUT */
 .content {
     margin-left: 250px;
     padding: 2rem;
-    min-height: 100vh;
-    background: var(--vert-fonce);
-    overflow-y: auto;
 }
 
-/* CARTE PRINCIPALE */
 .container {
     background: var(--blanc);
     border-radius: 12px;
     padding: 2rem;
     border-top: 6px solid var(--vert-moyen);
-    max-height: calc(100vh - 4rem);
-    
 }
 
 .container h2 {
@@ -46,7 +39,6 @@ body {
     margin-bottom: 1.5rem;
 }
 
-/* BOUTONS CHOIX */
 .boutons-choix {
     display: flex;
     gap: 1rem;
@@ -71,7 +63,6 @@ body {
     color: var(--blanc);
 }
 
-/* FORMULAIRES */
 .formulaire {
     margin-bottom: 2rem;
     padding: 1.5rem;
@@ -153,7 +144,6 @@ body {
     background: #bbb;
 }
 
-/* SECTIONS TABLEAUX */
 .table-section {
     margin-top: 2rem;
 }
@@ -186,7 +176,6 @@ th {
     font-weight: 700;
 }
 
-/* Masque l'en-tête Action */
 th:last-child {
     visibility: hidden;
     width: 120px;
@@ -208,7 +197,6 @@ td {
     vertical-align: middle;
 }
 
-/* BOUTON SUPPRIMER */
 .btn-delete {
     background: var(--vert-fonce);
     color: var(--blanc);
@@ -225,11 +213,11 @@ td {
     background: var(--rouge);
 }
 
-/* RESPONSIVE */
 @media (max-width: 768px) {
     .content {
         margin-left: 0;
         padding: 1rem;
+        padding-top: 4rem;
     }
     .boutons-choix {
         flex-direction: column;
