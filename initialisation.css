@@ -194,6 +194,13 @@ tbody tr {
     transition: background 0.15s;
 }
 
+thead th {
+    position: sticky;
+    top: 0;
+    background: var(--vert-pale);
+    z-index: 10;
+}
+
 tbody tr:hover {
     background: var(--gris-clair);
 }
@@ -231,4 +238,12 @@ td {
     .boutons-choix {
         flex-direction: column;
     }
+}
+
+/*Defilement des tableaux*/
+.defilement_table {
+    max-height: 400px;
+    overflow-y: auto;
+    border: 1px solid var(--gris-bordure);
+    border-radius: 8px;
 }
