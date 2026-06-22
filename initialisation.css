@@ -27,6 +27,7 @@ body {
     padding: 2rem;
     min-height: 100vh;
     background: var(--vert-fonce);
+    overflow-y: auto;
 }
 
 /* CARTE PRINCIPALE */
@@ -35,6 +36,8 @@ body {
     border-radius: 12px;
     padding: 2rem;
     border-top: 6px solid var(--vert-moyen);
+    max-height: calc(100vh - 4rem);
+    overflow-y: auto;
 }
 
 .container h2 {
