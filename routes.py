@@ -49,7 +49,8 @@ def serialize_enseignant(en):
 
 @bp.route("/")
 def accueil():
-    return {"status": "API opérationnelle", "message": "Plateforme de gestion des cours - ESI"}
+    return jsonify({"status": "API opérationnelle", "message": "Plateforme de gestion des cours - ESI"})
+
 
 # EMPLOIS DU TEMPS
 
@@ -115,7 +116,7 @@ def supprimer_precedence(id):
     return jsonify({"message": "supprimé"}), 200
 
 
-# ELEMENTS CONSTUTIFS
+# ELEMENTS CONSTITUTIFS
 
 @bp.route("/api/ec", methods=["GET"])
 def liste_ec():
@@ -146,12 +147,15 @@ def supprimer_ec(id):
     ec = EC.query.get_or_404(id)
     if ec.emplois_du_temps or ec.evaluations:
         return jsonify({"message": "Impossible : ce module a des emplois du temps ou évaluations associés. Supprimez-les d'abord."}), 400
+    Precedence.query.filter(
+        (Precedence.ec_avant_id == id) | (Precedence.ec_apres_id == id)
+    ).delete(synchronize_session=False)
     bdd.session.delete(ec)
     bdd.session.commit()
     return jsonify({"message": "supprimé"}), 200
 
 
-# CLASSES et ENSEIGNANTS (Menu déroulant)
+# CLASSES ET ENSEIGNANTS
 
 @bp.route("/api/classes", methods=["GET"])
 def liste_classes():
@@ -164,6 +168,7 @@ def liste_enseignants():
     enseignants = Enseignant.query.all()
     return jsonify([serialize_enseignant(en) for en in enseignants])
 
+
 @bp.route("/api/enseignants", methods=["POST"])
 def ajouter_enseignant():
     data = request.get_json()
@@ -175,6 +180,7 @@ def ajouter_enseignant():
     bdd.session.add(nouvel_enseignant)
     bdd.session.commit()
     return jsonify(serialize_enseignant(nouvel_enseignant)), 201
+
 
 @bp.route("/api/enseignants/<int:id>", methods=["DELETE"])
 def supprimer_enseignant(id):
