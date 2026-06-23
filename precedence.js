@@ -1,8 +1,3 @@
-// =============================================
-// PRECEDENCE.JS
-// Gestion des précédences entre modules (EC)
-// =============================================
-
 // Lecture du localStorage — classe déjà choisie
 const CLASSE_ID = localStorage.getItem('classe_id')
 const CLASSE_NOM = localStorage.getItem('classe_choisie')
@@ -16,11 +11,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     await chargerModules()
+    await chargerPrecedences()
 })
 
-// =============================================
 // CHARGER LES MODULES DE LA CLASSE CHOISIE
-// =============================================
 async function chargerModules() {
     const moduleSelect = document.getElementById('moduleSelect')
     const predSelect = document.getElementById('predecesseurSelect')
@@ -57,9 +51,7 @@ async function chargerModules() {
     }
 }
 
-// =============================================
 // ENREGISTRER LA PRECEDENCE
-// =============================================
 document.getElementById('precedenceForm').addEventListener('submit', async (e) => {
     e.preventDefault()
 
@@ -77,7 +69,7 @@ document.getElementById('precedenceForm').addEventListener('submit', async (e) =
     }
 
     try {
-        // /api/precedences POST — route définie dans routes.py
+        // /api/precedences POST
         // body attendu : { ec_avant_id, ec_apres_id }
         const res = await fetch(`${API_URL}/api/precedences`, {
             method: 'POST',
@@ -89,9 +81,9 @@ document.getElementById('precedenceForm').addEventListener('submit', async (e) =
         })
 
         if (res.ok) {
-            alert('Précédence ajoutée avec succès !')
             document.getElementById('moduleSelect').value = ''
             document.getElementById('predecesseurSelect').value = ''
+            chargerPrecedences() // tableau se rafraîchit automatiquement
         } else {
             alert("Erreur lors de l'enregistrement")
         }
@@ -100,3 +92,52 @@ document.getElementById('precedenceForm').addEventListener('submit', async (e) =
         alert('Impossible de contacter le serveur')
     }
 })
+
+async function chargerPrecedences() {
+    const tbody = document.getElementById('tableau-precedences')
+    tbody.innerHTML = '<tr><td colspan="3">Chargement...</td></tr>'
+
+    try {
+        const [resPrecedences, resEC] = await Promise.all([
+            fetch(`${API_URL}/api/precedences`),
+            fetch(`${API_URL}/api/ec`)
+        ])
+        const precedences = await resPrecedences.json()
+        const ecs = await resEC.json()
+
+        const ecMap = {}
+        ecs.forEach(ec => ecMap[ec.id] = ec.nom)
+
+        // Filtre uniquement les précédences de la classe courante
+        const ecClasse = ecs.filter(ec => ec.classe_id === parseInt(CLASSE_ID)).map(ec => ec.id)
+        const filtrees = precedences.filter(p =>
+            ecClasse.includes(p.ec_avant_id) && ecClasse.includes(p.ec_apres_id)
+        )
+
+        if (filtrees.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="3" style="text-align:center">Aucune précédence enregistrée</td></tr>'
+            return
+        }
+
+        tbody.innerHTML = ''
+        filtrees.forEach(p => {
+            const tr = document.createElement('tr')
+            tr.innerHTML = `
+                <td>${ecMap[p.ec_avant_id] || '#' + p.ec_avant_id}</td>
+                <td>${ecMap[p.ec_apres_id] || '#' + p.ec_apres_id}</td>
+                <td><button onclick="supprimerPrecedence(${p.id})" class="btn-suppr">🗑 Supprimer</button></td>
+            `
+            tbody.appendChild(tr)
+        })
+
+    } catch {
+        tbody.innerHTML = '<tr><td colspan="3" class="erreur">Erreur de chargement</td></tr>'
+    }
+}
+
+async function supprimerPrecedence(id) {
+    if (!confirm('Supprimer cette précédence ?')) return
+    const res = await fetch(`${API_URL}/api/precedences/${id}`, { method: 'DELETE' })
+    if (res.ok) chargerPrecedences()
+    else alert('Erreur lors de la suppression')
+}
