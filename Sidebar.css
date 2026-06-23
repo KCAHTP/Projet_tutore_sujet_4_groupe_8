@@ -1,9 +1,9 @@
 /* Sidebar */
 .sidebar {
-    position: relative;
+    position: fixed;
     top: 0;
     left: 0;
-    width: 250px;
+    width: 160px;
     height: 100vh;
     background: #1e5a3a;
     padding: 2rem 1.5rem;
