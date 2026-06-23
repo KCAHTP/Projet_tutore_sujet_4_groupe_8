@@ -69,3 +69,64 @@ button {
 button:hover {
     background-color: #16462c;
 }
+
+/* Conteneur global pour form + tableau */
+.page-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    padding: 50px 20px;
+    width: 100%;
+}
+
+/* Tableau des précédences */
+#tableau-precedences-container {
+    width: 100%;
+    max-width: 700px;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+#tableau-precedences-container th {
+    background-color: #1e5a3a;
+    color: white;
+    padding: 12px 16px;
+    text-align: left;
+    font-size: 0.9rem;
+}
+
+#tableau-precedences-container td {
+    padding: 12px 16px;
+    border-bottom: 1px solid #dcfce7;
+    color: #374151;
+    font-size: 0.9rem;
+}
+
+#tableau-precedences-container tr:last-child td {
+    border-bottom: none;
+}
+
+#tableau-precedences-container tr:hover td {
+    background-color: #f0fdf4;
+}
+
+/* Bouton supprimer dans le tableau */
+.btn-suppr {
+    background-color: #ef4444;
+    color: white;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    margin-top: 0;
+    transition: background 0.2s;
+}
+
+.btn-suppr:hover {
+    background-color: #dc2626;
+}
