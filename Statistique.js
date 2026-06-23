@@ -4,7 +4,7 @@ async function chargerStatistiques() {
 
     try {
 
-        const res= await fetch(`${API_URL}/api/statistiques`)
+        const res= await fetch(`${API_URL}/statistiques`)
 
         if(!res.ok) throw new Error()
         const data = await res.json()
