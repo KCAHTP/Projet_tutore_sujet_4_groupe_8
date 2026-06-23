@@ -5,27 +5,46 @@
     <title>Tableau de Bord</title>
     <link rel="stylesheet" href="tableau_bord.css">
     <link rel="stylesheet" href="global.css">
+    <link rel="icon" href="data:,">
 </head>
 <body>
-
-    <main class="main-content">
-        <h1 id="welcomeMessage">Bienvenue dans la classe...</h1>
-        <p>Voici l'aperçu de votre espace de gestion.</p>
-    </main>
-
     <script src="Sidebar.js"></script>
 
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            const className = localStorage.getItem('classe_choisie');
-            const welcomeMessage = document.getElementById('welcomeMessage');
+    <main class="main-content">
+        <h1 id="welcomeMessage">Bienvenue...</h1>
+        <p class="sous-titre">Aperçu de l'espace de gestion</p>
 
-            if (className) {
-                welcomeMessage.textContent = `Bienvenue dans la classe ${className}`;
-            } else {
-                welcomeMessage.textContent = "Bienvenue (Aucune classe sélectionnée)";
-            }
-        });
-    </script>
+        <!-- Cartes chiffres clés -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <span class="stat-label">Total EC</span>
+                <span class="stat-value" id="total-ec">—</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-label">Évaluations planifiées</span>
+                <span class="stat-value" id="total-planifiees">—</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-label">Évaluations terminées</span>
+                <span class="stat-value" id="total-terminees">—</span>
+            </div>
+            <div class="stat-card alerte-card">
+                <span class="stat-label">Alertes actives</span>
+                <span class="stat-value" id="total-alertes">—</span>
+            </div>
+        </div>
+
+        <!-- Barre d'avancement global -->
+        <div class="avancement-section">
+            <p><strong>Avancement global :</strong> <span id="avancement-global">—</span></p>
+            <div class="progress-bar-bg">
+                <div class="progress-bar-fill" id="progress-bar"></div>
+            </div>
+        </div>
+    </main>
+
+    <script src="config.js"></script>
+    <script src="tableau_bord.js"></script>
+
 </body>
 </html>

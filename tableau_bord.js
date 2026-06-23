@@ -1,40 +1,31 @@
-(function() {
-    "use strict"; // Active le mode strict pour éviter les erreurs courantes
 
-    const initSidebar = () => {
-        //  Injection sécurisée du CSS
-        if (!document.querySelector('link[href="Sidebar.css"]')) {
-            const link = document.createElement('link');
-            link.rel = 'stylesheet';
-            link.href = 'Sidebar.css';
-            document.head.appendChild(link);
-        }
+document.addEventListener("DOMContentLoaded", async () => {
+    const className = localStorage.getItem('classe_choisie')
+    const classeId = parseInt(localStorage.getItem('classe_id'))
+    document.getElementById('welcomeMessage').textContent =
+        className ? `Bienvenue dans la classe ${className}` : "Bienvenue (Aucune classe sélectionnée)"
 
-        // Vérification de l'existence du conteneur
-        let container = document.getElementById('sidebar-container');
-        if (!container) {
-            container = document.createElement('div');
-            container.id = 'sidebar-container';
-            // On insère le conteneur en tout début de body
-            document.body.prepend(container);
-        }
+        try {
+            const [resStats, resAlertes] = await Promise.all([
+                fetch(`${API_URL}/api/statistiques`),
+                fetch(`${API_URL}/alertes`)
+            ])
+            const stats = await resStats.json()
+            const alertes = await resAlertes.json()
 
-        // Fetch sécurisé
-        fetch('Sidebar.html')
-            .then(response => {
-                if (!response.ok) throw new Error('Erreur chargement Sidebar.html');
-                return response.text();
-            })
-            .then(data => {
-                container.innerHTML = data;
-            })
-            .catch(err => console.warn("Sidebar non chargée :", err.message));
-    };
+            // Filtre alertes de la classe courante
+            const alertesClasse = alertes.filter(a => a.evaluation_id !== undefined)
 
-    // Lancement une fois que le DOM est prêt
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initSidebar);
-    } else {
-        initSidebar();
+            document.getElementById('total-ec').textContent = stats.total_evaluations ?? '—'
+            document.getElementById('total-planifiees').textContent = stats.planifiées ?? '—'
+            document.getElementById('total-terminees').textContent = stats.terminées ?? '—'
+            document.getElementById('total-alertes').textContent = alertesClasse.length
+
+            const pct = parseFloat(stats.avancement_global) || 0
+            document.getElementById('avancement-global').textContent = stats.avancement_global ?? '—'
+            document.getElementById('progress-bar').style.width = `${pct}%`
+
+        } catch {
+            console.warn('Erreur chargement dashboard')
     }
-})();
+})
