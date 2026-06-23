@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             // Filtre alertes de la classe courante
             const alertesClasse = alertes.filter(a => a.evaluation_id !== undefined)
 
-            document.getElementById('total-ec').textContent = stats.total_evaluations ?? '—'
+            document.getElementById('total-evals').textContent = stats.total_evaluations ?? '—'
             document.getElementById('total-planifiees').textContent = stats.planifiées ?? '—'
             document.getElementById('total-terminees').textContent = stats.terminées ?? '—'
             document.getElementById('total-alertes').textContent = alertesClasse.length
