@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         try {
             const [resStats, resAlertes] = await Promise.all([
-                fetch(`${API_URL}/api/statistiques`),
+                fetch(`${API_URL}/statistiques`),
                 fetch(`${API_URL}/alertes`)
             ])
             const stats = await resStats.json()
@@ -26,6 +26,6 @@ document.addEventListener("DOMContentLoaded", async () => {
             document.getElementById('progress-bar').style.width = `${pct}%`
 
         } catch {
-            console.warn('Erreur chargement dashboard')
+            console.warn('Erreur chargement du tableau de bord')
     }
 })

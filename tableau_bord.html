@@ -12,39 +12,42 @@
 
     <main class="main-content">
         <h1 id="welcomeMessage">Bienvenue...</h1>
-        <p class="sous-titre">Aperçu de l'espace de gestion</p>
+        <p>Aperçu de l'espace de gestion</p>
 
-        <!-- Cartes chiffres clés -->
-        <div class="stats-grid">
-            <div class="stat-card">
-                <span class="stat-label">Total EC</span>
-                <span class="stat-value" id="total-ec">—</span>
+        <div class="stats-cards">
+            <div class="card">
+                <h3>Total évaluations</h3>
+                <p id="total-evals">—</p>
             </div>
-            <div class="stat-card">
-                <span class="stat-label">Évaluations planifiées</span>
-                <span class="stat-value" id="total-planifiees">—</span>
+            <div class="card">
+                <h3>Planifiées</h3>
+                <p id="total-planifiees">—</p>
             </div>
-            <div class="stat-card">
-                <span class="stat-label">Évaluations terminées</span>
-                <span class="stat-value" id="total-terminees">—</span>
+            <div class="card">
+                <h3>Terminées</h3>
+                <p id="total-terminees">—</p>
             </div>
-            <div class="stat-card alerte-card">
-                <span class="stat-label">Alertes actives</span>
-                <span class="stat-value" id="total-alertes">—</span>
+            <div class="card">
+                <h3>En retard</h3>
+                <p id="total-retard">—</p>
+            </div>
+            <div class="card">
+                <h3>Alertes actives</h3>
+                <p id="total-alertes">—</p>
             </div>
         </div>
 
-        <!-- Barre d'avancement global -->
-        <div class="avancement-section">
-            <p><strong>Avancement global :</strong> <span id="avancement-global">—</span></p>
-            <div class="progress-bar-bg">
-                <div class="progress-bar-fill" id="progress-bar"></div>
+        <div class="progress-section">
+            <h2>Avancement global</h2>
+            <div class="progress-container">
+                <div class="progress-bar" id="progress-bar" style="width: 0%"></div>
             </div>
+            <p id="avancement-global">—</p>
         </div>
     </main>
 
     <script src="config.js"></script>
     <script src="tableau_bord.js"></script>
-
+    
 </body>
 </html>
