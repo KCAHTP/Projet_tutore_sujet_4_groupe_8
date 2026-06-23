@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Suivi des Devoirs</title>
+    <title>Suivi des Evaluations</title>
     <link rel="stylesheet" href="global.css">
     <link rel="stylesheet" href="suivi.css">
 </head>
@@ -12,16 +12,25 @@
     <main class="main-content">
 
         <div class="suivi-header">
-            <h1>Validation des Devoirs</h1>
+            <h1>Suivi des Evaluations</h1>
             <span class="info-classe">Classe : <strong id="nom-classe">...</strong></span>
         </div>
 
         <!-- Ajout de devoir -->
         <div class="ajouter-devoir-form">
-            <h2>Programmer un devoir</h2>
+            <h2>Programmer une évaluation</h2>
             <select id="select-ec"></select>
             <input type="date" id="input-date">
-            <button onclick="ajouterDevoir()">Ajouter</button>
+            <select id="select-type">
+                <option value="examen theorique">Examen théorique</option>
+                <option value="TP">TP</option>
+                <option value="Rattrapage">Rattrapage</option>
+            </select>
+            <select id="select-statut">
+                <option value="planifiée">Planifiée</option>
+                <option value="terminée">Terminée</option>
+            </select>
+            <button onclick="ajouterEvaluation()">Ajouter</button>
         </div>
 
         <!-- Liste des devoirs -->

@@ -130,12 +130,14 @@ async function chargerEC() {
 }
 
 // POST vers /api/evaluations
-async function ajouterDevoir() {
+async function ajouterEvaluation() {
     const ec_id = document.getElementById('select-ec').value
     const date = document.getElementById('input-date').value
+    const type = document.getElementById('select-type').value
+    const statut = document.getElementById('select-statut').value
 
     if (!ec_id || !date) {
-        alert("Remplissez tous les champs.")
+        alert("Remplis tous les champs.")
         return
     }
 
@@ -146,8 +148,8 @@ async function ajouterDevoir() {
             ec_id: parseInt(ec_id),
             classe_id: parseInt(CLASSE_ID),
             date: date,
-            type: 'devoir',
-            statut: 'planifiée'
+            type: type,
+            statut: statut
         })
     })
 

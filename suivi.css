@@ -25,7 +25,7 @@ body {
 }
 
 .suivi-header h1 {
-    color: #1e3a5f;
+    color: #FFD700;
     font-size: 1.6rem;
     margin: 0;
 }
@@ -162,7 +162,7 @@ body {
     }
 }
 
-/* Formulaire ajout devoir */
+/* Formulaire ajout évaluation */
 .ajouter-devoir-form {
     background: white;
     border-radius: 12px;
@@ -191,7 +191,7 @@ body {
     background: #f8fafc;
     color: #1e3a5f;
     flex: 1;
-    min-width: 180px;
+    min-width: 160px;
 }
 
 .ajouter-devoir-form select:focus,
