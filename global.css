@@ -1,4 +1,4 @@
-/* 1. Variables de couleurs (Facile à modifier plus tard) */
+/* Variables de couleurs */
 :root {
     --vert-fonce: #1e5a3a;
     --blanc: #ffffff;
@@ -6,7 +6,7 @@
     --ombre: rgba(0, 0, 0, 0.3);
 }
 
-/* 2. Style global du corps */
+/* Style global du corps */
 body {
     background-color: var(--vert-fonce);
     margin: 0;
@@ -18,7 +18,7 @@ body {
     align-items: center;
 }
 
-/* 3. Style du Cadre (Card) */
+/* Style du Cadre */
 .card {
     background: var(--blanc);
     padding: 2.5rem;
@@ -28,7 +28,7 @@ body {
     text-align: center;
 }
 
-/* 4. Style du Menu Déroulant */
+/* Style du Menu Déroulant */
 .styled-select {
     width: 100%;
     padding: 15px;
@@ -40,7 +40,7 @@ body {
     cursor: pointer;
 }
 
-/* 5. Style du bouton */
+/* Style du bouton */
 button {
     width: 100%;
     padding: 12px;
@@ -54,10 +54,9 @@ button {
 }
 
 button:hover {
-    background-color: #16462c; /* Un vert légèrement plus sombre au survol */
+    background-color: #16462c;
 }
 
-/* 6. Petit truc en plus : Animation d'apparition du cadre */
 .card {
     animation: fadeIn 0.8s ease-in-out;
 }

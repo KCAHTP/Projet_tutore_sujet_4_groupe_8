@@ -8,7 +8,7 @@ body {
 
 /* Contenu principal décalé pour laisser place à la sidebar */
 .main-content {
-    margin-left: 270px;
+    margin-left: 230px;
     padding: 30px;
     min-height: 100vh;
     box-sizing: border-box;
@@ -159,5 +159,72 @@ body {
     .suivi-header {
         flex-direction: column;
         align-items: flex-start;
+    }
+}
+
+/* Formulaire ajout devoir */
+.ajouter-devoir-form {
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    margin-bottom: 30px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: 14px;
+}
+
+.ajouter-devoir-form h2 {
+    width: 100%;
+    color: #1e3a5f;
+    font-size: 1.2rem;
+    margin: 0 0 4px 0;
+}
+
+.ajouter-devoir-form select,
+.ajouter-devoir-form input[type="date"] {
+    padding: 10px 14px;
+    border: 2px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    background: #f8fafc;
+    color: #1e3a5f;
+    flex: 1;
+    min-width: 180px;
+}
+
+.ajouter-devoir-form select:focus,
+.ajouter-devoir-form input[type="date"]:focus {
+    outline: none;
+    border-color: #1e3a5f;
+}
+
+.ajouter-devoir-form button {
+    width: auto;
+    padding: 10px 24px;
+    background-color: #1e3a5f;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s;
+    white-space: nowrap;
+}
+
+.ajouter-devoir-form button:hover {
+    background-color: #162e4a;
+}
+
+@media (max-width: 768px) {
+    .ajouter-devoir-form {
+        flex-direction: column;
+    }
+
+    .ajouter-devoir-form select,
+    .ajouter-devoir-form input[type="date"],
+    .ajouter-devoir-form button {
+        width: 100%;
     }
 }
