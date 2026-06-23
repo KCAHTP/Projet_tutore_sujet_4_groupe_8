@@ -19,6 +19,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             document.getElementById('total-evals').textContent = stats.total_evaluations ?? '—'
             document.getElementById('total-planifiees').textContent = stats.planifiées ?? '—'
             document.getElementById('total-terminees').textContent = stats.terminées ?? '—'
+            document.getElementById('total-retard').textContent = stats.en_retard ?? '—'
             document.getElementById('total-alertes').textContent = alertesClasse.length
 
             const pct = parseFloat(stats.avancement_global) || 0
