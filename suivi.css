@@ -228,3 +228,30 @@ body {
         width: 100%;
     }
 }
+
+/* Alertes */
+.alerte {
+    margin: 10px 0;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: bold;
+}
+
+.alerte.retard {
+    background: #fef2f2;
+    color: #dc2626;
+    border-left: 4px solid #ef4444;
+}
+
+.alerte.bientôt {
+    background: #fffbeb;
+    color: #d97706;
+    border-left: 4px solid #f59e0b;
+}
+
+.alerte.non\ programmee {
+    background: #f0f9ff;
+    color: #0369a1;
+    border-left: 4px solid #38bdf8;
+}

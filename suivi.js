@@ -52,38 +52,58 @@ function afficherDevoirs(liste) {
         return
     }
 
-    liste.forEach(devoir => {
-        const card = document.createElement('div')
+    // Charge les alertes PUIS affiche les cartes
+    fetch(`${API_URL}/alertes`)
+        .then(r => r.json())
+        .then(alertes => {
+            liste.forEach(devoir => {
+                const card = document.createElement('div')
 
-        // Couleur de la carte selon le statut
-        let classeStatut = ''
-        if (devoir.statut === 'terminée') classeStatut = 'card-confirmee'
-        else if (devoir.statut === 'Non fait') classeStatut = 'card-annulee'
-        card.className = `devoir-card ${classeStatut}`
+                let classeStatut = ''
+                if (devoir.statut === 'terminée') classeStatut = 'card-confirmee'
+                else if (devoir.statut === 'Non fait') classeStatut = 'card-annulee'
+                card.className = `devoir-card ${classeStatut}`
+                card.dataset.id = devoir.id
 
-        // Boutons ou statut final
-        let boutonsHTML = ''
-        if (devoir.statut === 'planifiée' || devoir.statut === 'planifie' || devoir.statut === 'en cours') {
-            boutonsHTML = `
-                <div class="card-actions">
-                    <button onclick="validerDevoir(${devoir.id}, 'terminée')" class="btn-confirm">✔️ Fait</button>
-                    <button onclick="validerDevoir(${devoir.id}, 'Non fait')" class="btn-reject">❌ Non fait</button>
-                </div>`
-        } else {
-            boutonsHTML = `<span class="status-final">
-                ${devoir.statut === 'terminée' ? '🟢 Effectué' : '🔴 Non fait'}
-            </span>`
-        }
+                let boutonsHTML = ''
+                if (devoir.statut === 'planifiée' || devoir.statut === 'planifie' || devoir.statut === 'en cours') {
+                    boutonsHTML = `
+                        <div class="card-actions">
+                            <button onclick="validerDevoir(${devoir.id}, 'terminée')" class="btn-confirm">✔️ Fait</button>
+                            <button onclick="validerDevoir(${devoir.id}, 'Non fait')" class="btn-reject">❌ Non fait</button>
+                        </div>`
+                } else {
+                    boutonsHTML = `<span class="status-final">
+                        ${devoir.statut === 'terminée' ? '🟢 Effectué' : '🔴 Non fait'}
+                    </span>`
+                }
 
-        card.innerHTML = `
-            <h3>Évaluation #${devoir.id}</h3>
-            <p><strong>Type :</strong> ${devoir.type}</p>
-            <p><strong>Date :</strong> ${devoir.date ? formaterDate(devoir.date) : 'Non définie'}</p>
-            <p><strong>Statut :</strong> ${devoir.statut}</p>
-            ${boutonsHTML}
-        `
-        conteneur.appendChild(card)
-    })
+                // Alerte liée à ce devoir
+                const alerte = alertes.find(a => a.evaluation_id === devoir.id)
+                const alerteHTML = alerte
+                    ? `<div class="alerte ${alerte.type.toLowerCase()}">${alerte.message}</div>`
+                    : ''
+
+                card.innerHTML = `
+                    <h3>Évaluation #${devoir.id}</h3>
+                    <p><strong>Type :</strong> ${devoir.type}</p>
+                    <p><strong>Date :</strong> ${devoir.date ? formaterDate(devoir.date) : 'Non définie'}</p>
+                    <p><strong>Statut :</strong> ${devoir.statut}</p>
+                    ${alerteHTML}
+                    ${boutonsHTML}
+                `
+                conteneur.appendChild(card)
+            })
+        })
+        .catch(() => {
+            // Si alertes.py plante, on affiche quand même les cartes
+            liste.forEach(devoir => {
+                const card = document.createElement('div')
+                card.className = `devoir-card`
+                card.innerHTML = `<h3>Évaluation #${devoir.id}</h3>`
+                conteneur.appendChild(card)
+            })
+        })
 }
 
 // VALIDER UN DEVOIR
