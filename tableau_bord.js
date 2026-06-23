@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             document.getElementById('avancement-global').textContent = stats.avancement_global ?? '—'
             document.getElementById('progress-bar').style.width = `${pct}%`
 
-        } catch {
-            console.warn('Erreur chargement du tableau de bord')
+        } catch(err) {
+            console.warn('Erreur chargement du tableau de bord', err)
     }
 })
