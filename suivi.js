@@ -85,7 +85,8 @@ function afficherDevoirs(liste) {
                     : ''
 
                 card.innerHTML = `
-                    <h3>Évaluation #${devoir.id}</h3>
+                    <h3>Évaluation de ${ecMap[devoir.ec_id] || 'Module inconnu'}</h3>
+                    <span class="card-id">#${devoir.id}</span>
                     <p><strong>Type :</strong> ${devoir.type}</p>
                     <p><strong>Date :</strong> ${devoir.date ? formaterDate(devoir.date) : 'Non définie'}</p>
                     <p><strong>Statut :</strong> ${devoir.statut}</p>
@@ -137,15 +138,17 @@ function formaterDate(dateStr) {
 }
 
 // Charge les EC de la classe pour le menu déroulant
+let ecMap = {} // id -> nom
+
 async function chargerEC() {
     const res = await fetch(`${API_URL}/api/ec`)
     const ecs = await res.json()
-    const select = document.getElementById('select-ec')
     ecs.filter(ec => ec.classe_id === parseInt(CLASSE_ID)).forEach(ec => {
+        ecMap[ec.id] = ec.nom // stockage
         const option = document.createElement('option')
         option.value = ec.id
         option.textContent = ec.nom
-        select.appendChild(option)
+        document.getElementById('select-ec').appendChild(option)
     })
 }
 
