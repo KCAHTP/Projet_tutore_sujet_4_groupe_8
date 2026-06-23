@@ -6,7 +6,7 @@ eval_bp = Blueprint('evaluations', __name__)
 
 
 # Route 1 : Lister toutes les évaluations
-@eval_bp.route('/evaluations', methods=['GET'])
+@eval_bp.route('/api/evaluations', methods=['GET'])
 def get_evaluations():
     evaluations = Evaluation.query.all()
     result = []
@@ -23,7 +23,7 @@ def get_evaluations():
 
 
 # Route 2 : Modifier le statut d'une évaluation
-@eval_bp.route('/evaluations/<int:id>', methods=['PUT'])
+@eval_bp.route('/api/evaluations/<int:id>', methods=['PUT'])
 def update_evaluation(id):
     eval = Evaluation.query.get(id)
     if not eval:
@@ -36,7 +36,7 @@ def update_evaluation(id):
 
 # Route 3 : Ajouter une évaluation
 
-@eval_bp.route('/evaluations', methods=['POST'])
+@eval_bp.route('/api/evaluations', methods=['POST'])
 def add_evaluation():
     data = request.get_json()
     nouvelle = Evaluation(

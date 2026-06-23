@@ -1,9 +1,3 @@
-// =============================================
-// SUIVI.JS
-// Validation des devoirs (évaluations) 
-// de la classe choisie
-// =============================================
-
 // Lecture du localStorage — classe déjà choisie
 const CLASSE_ID = localStorage.getItem('classe_id')
 const CLASSE_NOM = localStorage.getItem('classe_choisie')
@@ -23,9 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
     chargerDevoirs()
 })
 
-// =============================================
 // CHARGER LES DEVOIRS DE LA CLASSE
-// =============================================
 async function chargerDevoirs() {
     const conteneur = document.getElementById('liste-devoirs')
     conteneur.innerHTML = '<p class="chargement">Chargement des devoirs...</p>'
@@ -47,9 +39,7 @@ async function chargerDevoirs() {
     }
 }
 
-// =============================================
 // AFFICHER LES DEVOIRS
-// =============================================
 function afficherDevoirs(liste) {
     const conteneur = document.getElementById('liste-devoirs')
     conteneur.innerHTML = ''
@@ -93,9 +83,7 @@ function afficherDevoirs(liste) {
     })
 }
 
-// =============================================
-// VALIDER UN DEVOIR → BACK
-// =============================================
+// VALIDER UN DEVOIR
 async function validerDevoir(devoirId, statutChoisi) {
     try {
         // PUT /api/evaluations/<id> — route définie dans evaluations.py
@@ -118,9 +106,7 @@ async function validerDevoir(devoirId, statutChoisi) {
     }
 }
 
-// =============================================
 // FORMATER UNE DATE
-// =============================================
 function formaterDate(dateStr) {
     return new Date(dateStr).toLocaleDateString('fr-FR', {
         weekday: 'long', day: 'numeric', month: 'long'
