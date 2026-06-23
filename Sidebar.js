@@ -1,51 +1,40 @@
-document.addEventListener("DOMContentLoaded", function () {
+(function() {
+    "use strict"; // Active le mode strict pour éviter les erreurs courantes
 
-    // CSS
-    if (!document.querySelector('link[href="Sidebar.css"]')) {
-        const link = document.createElement('link');
-        link.rel = 'stylesheet';
-        link.href = 'Sidebar.css';
-        document.head.appendChild(link);
+    const initSidebar = () => {
+        //  Injection sécurisée du CSS
+        if (!document.querySelector('link[href="Sidebar.css"]')) {
+            const link = document.createElement('link');
+            link.rel = 'stylesheet';
+            link.href = 'Sidebar.css';
+            document.head.appendChild(link);
+        }
+
+        // Vérification de l'existence du conteneur
+        let container = document.getElementById('sidebar-container');
+        if (!container) {
+            container = document.createElement('div');
+            container.id = 'sidebar-container';
+            // On insère le conteneur en tout début de body
+            document.body.prepend(container);
+        }
+
+        // Fetch sécurisé
+        fetch('Sidebar.html')
+            .then(response => {
+                if (!response.ok) throw new Error('Erreur chargement Sidebar.html');
+                return response.text();
+            })
+            .then(data => {
+                container.innerHTML = data;
+            })
+            .catch(err => console.warn("Sidebar non chargée :", err.message));
+    };
+
+    // Lancement une fois que le DOM est prêt
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initSidebar);
+    } else {
+        initSidebar();
     }
-
-    // Conteneur
-    let container = document.getElementById('sidebar-container');
-    if (!container) {
-        container = document.createElement('div');
-        container.id = 'sidebar-container';
-        document.body.prepend(container);
-    }
-
-    // Chargement HTML
-    fetch('Sidebar.html')
-        .then(r => r.text())
-        .then(html => {
-            container.innerHTML = html;
-
-            const sidebar = document.getElementById('sidebar');
-            const overlay = document.getElementById('sidebar-overlay');
-            const btn = document.getElementById('hamburger-btn');
-
-            // Lien actif
-            const links = sidebar.querySelectorAll('nav a');
-            links.forEach(link => {
-                if (link.href === location.href) {
-                    link.classList.add('active');
-                }
-            });
-
-            // Toggle hamburger
-            btn.addEventListener('click', () => {
-                const isOpen = sidebar.classList.toggle('open');
-                overlay.classList.toggle('visible', isOpen);
-                btn.classList.toggle('open', isOpen);
-            });
-
-            // Fermer en cliquant sur l'overlay
-            overlay.addEventListener('click', () => {
-                sidebar.classList.remove('open');
-                overlay.classList.remove('visible');
-                btn.classList.remove('open');
-            });
-        });
-});
+})();
