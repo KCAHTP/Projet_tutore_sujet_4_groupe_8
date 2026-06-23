@@ -15,6 +15,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Charge les devoirs
     chargerDevoirs()
+
+    // Charge les EC pour le menu déroulant
+    chargerEC()
 })
 
 // CHARGER LES DEVOIRS DE LA CLASSE
@@ -111,4 +114,46 @@ function formaterDate(dateStr) {
     return new Date(dateStr).toLocaleDateString('fr-FR', {
         weekday: 'long', day: 'numeric', month: 'long'
     })
+}
+
+// Charge les EC de la classe pour le menu déroulant
+async function chargerEC() {
+    const res = await fetch(`${API_URL}/api/ec`)
+    const ecs = await res.json()
+    const select = document.getElementById('select-ec')
+    ecs.filter(ec => ec.classe_id === parseInt(CLASSE_ID)).forEach(ec => {
+        const option = document.createElement('option')
+        option.value = ec.id
+        option.textContent = ec.nom
+        select.appendChild(option)
+    })
+}
+
+// POST vers /api/evaluations
+async function ajouterDevoir() {
+    const ec_id = document.getElementById('select-ec').value
+    const date = document.getElementById('input-date').value
+
+    if (!ec_id || !date) {
+        alert("Remplissez tous les champs.")
+        return
+    }
+
+    const res = await fetch(`${API_URL}/api/evaluations`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            ec_id: parseInt(ec_id),
+            classe_id: parseInt(CLASSE_ID),
+            date: date,
+            type: 'devoir',
+            statut: 'planifiée'
+        })
+    })
+
+    if (res.ok) {
+        chargerDevoirs()
+    } else {
+        alert("Erreur lors de l'ajout.")
+    }
 }
