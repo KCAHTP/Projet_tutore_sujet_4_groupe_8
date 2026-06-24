@@ -3,7 +3,7 @@
     position: fixed;
     top: 0;
     left: 0;
-    width: 160px;
+    width: 180px;
     height: 100vh;
     background: #1e5a3a;
     padding: 2rem 1.5rem;
@@ -33,7 +33,7 @@
     padding: 0.65rem 1rem;
     border-radius: 8px;
     font-size: 0.95rem;
-    font-weight: 500;
+    font-weight: 600;
     transition: background 0.2s, color 0.2s;
 }
 
@@ -98,31 +98,20 @@
 }
 
 /* Responsive */
-@media (max-width: 768px) {
-    .sidebar {
-        transform: translateX(-100%);
-    }
-
-    .sidebar.open {
-        transform: translateX(0);
-    }
-
-    .hamburger {
-        display: flex;
-    }
-
-    /* Les pages doivent retirer leur margin-left en mobile */
-    .content,
-    .main-content {
-        margin-left: 0 !important;
-        padding-top: 4rem;
-    }
+.sidebar {
+    transform: translateX(-100%);
 }
 
-/* Décalage du contenu principal (Ordis)*/
-@media (min-width: 769px) {
-    .content,
-    .main-content {
-        margin-left: 250px;
-    }
+.sidebar.open {
+    transform: translateX(0);
+}
+
+.hamburger {
+    display: flex;
+}
+
+.content,
+.main-content {
+    margin-left: 0 !important;
+    padding-top: 4rem;
 }

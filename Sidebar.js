@@ -27,6 +27,22 @@
             })
             .then(data => {
                 container.innerHTML = data;
+
+                const hamburger = document.getElementById('hamburger-btn');
+                const sidebar = document.getElementById('sidebar');
+                const overlay = document.getElementById('sidebar-overlay');
+
+                hamburger.addEventListener('click', () => {
+                    sidebar.classList.toggle('open');
+                    hamburger.classList.toggle('open');
+                    overlay.classList.toggle('visible');
+                });
+
+                overlay.addEventListener('click', () => {
+                    sidebar.classList.remove('open');
+                hamburger.classList.remove('open');
+                    overlay.classList.remove('visible');
+                });
             })
             .catch(err => console.warn("Sidebar non chargée :", err.message));
     };
