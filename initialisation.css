@@ -27,11 +27,11 @@ html, body {
 }
 
 .container {
-    background: var(--blanc);
+    background: var(--gris-clair);
     border-radius: 12px;
     padding: 2rem;
     border-top: 6px solid var(--vert-moyen);
-    margin-top: 300px;
+    margin-top: 200px;
 }
 
 .container h2 {
@@ -194,7 +194,8 @@ tbody tr:hover {
 
 td {
     padding: 0.85rem 1rem;
-    font-size: 0.95rem;
+    font-size: 1rem;
+    font-weight: 500;
     color: #333;
     vertical-align: middle;
 }
