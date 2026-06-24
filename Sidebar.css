@@ -98,31 +98,20 @@
 }
 
 /* Responsive */
-@media (max-width: 768px) {
-    .sidebar {
-        transform: translateX(-100%);
-    }
-
-    .sidebar.open {
-        transform: translateX(0);
-    }
-
-    .hamburger {
-        display: flex;
-    }
-
-    /* Les pages doivent retirer leur margin-left en mobile */
-    .content,
-    .main-content {
-        margin-left: 0 !important;
-        padding-top: 4rem;
-    }
+.sidebar {
+    transform: translateX(-100%);
 }
 
-/* Décalage du contenu principal (Ordis) */
-@media (min-width: 769px) {
-    .content,
-    .main-content {
-        margin-left: 180px;
-    }
+.sidebar.open {
+    transform: translateX(0);
+}
+
+.hamburger {
+    display: flex;
+}
+
+.content,
+.main-content {
+    margin-left: 0 !important;
+    padding-top: 4rem;
 }
